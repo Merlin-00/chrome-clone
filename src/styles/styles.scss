@@ -123,16 +123,6 @@ p {
   font-weight: var(--font-weight-regular);
 }
 
-a {
-  color: var(--color-primary);
-  text-decoration: none;
-  transition: color var(--transition-fast);
-
-  &:hover {
-    color: var(--color-accent);
-  }
-}
-
 /* -------------------------------------------------------------------------- */
 /* 🧩 Boutons génériques
 --------------------------------------------------------------------------- */
@@ -161,7 +151,27 @@ button,
 
 .btn-primary:hover {
   background-color: var(--color-accent);
-  transform: translateY(-2px);
+}
+
+a {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  margin: 0.5rem 0;
+  overflow: hidden;
+  text-decoration: none;
+  color: #5b5b5b;
+  font-size: 14px;
+}
+
+.external-icon {
+  font-size: 16px;
+  margin-top: 10px;
+  transition: transform 0.2s ease-out;
+}
+a:hover .external-icon {
+  color: black;
+  transform: translateX(4px);
 }
 
 /* -------------------------------------------------------------------------- */

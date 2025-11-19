@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { SidenavService } from '../../services/sidenav';
 import gsap from 'gsap';
+import { MatNavList } from '@angular/material/list';
 
 @Component({
   selector: 'app-sidenav',
   standalone: true,
-  imports: [CommonModule, MatIconModule],
+  imports: [CommonModule, MatIconModule, MatNavList],
   templateUrl: './sidenav.html',
   styleUrls: ['./sidenav.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -30,6 +31,7 @@ export class Sidenav {
   private animate(open: boolean): void {
     const sidenav = this.el.nativeElement.querySelector('.sidenav');
     const backdrop = this.el.nativeElement.querySelector('.sidenav__backdrop');
+    const closeBtn = this.el.nativeElement.querySelector('.close-btn');
 
     gsap.to(sidenav, {
       x: open ? 0 : '-100%',
@@ -43,5 +45,17 @@ export class Sidenav {
       duration: 0.3,
       ease: 'power2.out',
     });
+
+    // animate close button visibility so it doesn't remain visible when drawer is closed
+    if (closeBtn) {
+      gsap.to(closeBtn, {
+        opacity: open ? 1 : 0,
+        x: open ? 0 : -16,
+        duration: 0.25,
+        ease: 'power2.out',
+      });
+      // pointer-events can't be animated smoothly, set immediately
+      closeBtn.style.pointerEvents = open ? 'auto' : 'none';
+    }
   }
 }
