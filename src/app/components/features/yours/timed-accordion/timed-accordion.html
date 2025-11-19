@@ -1,0 +1,144 @@
+<div class="accordion-container">
+  <div class="accordion-desktop">
+    <div class="visual-panels">
+      @for (item of items(); track item.id) {
+      <div class="panel" [class.is-active]="item.id === activeId()">
+        @if (item.id === 'customize') {
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+          <rect width="400" height="300" rx="14" fill="#fefce8" />
+          <text
+            x="50%"
+            y="50%"
+            dominant-baseline="middle"
+            text-anchor="middle"
+            font-family="Roboto, sans-serif"
+            font-size="24"
+            fill="#ca8a04"
+          >
+            Customize UI
+          </text>
+        </svg>
+        } @else if (item.id === 'devices') {
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+          <rect width="400" height="300" rx="14" fill="#f0f9ff" />
+          <text
+            x="50%"
+            y="50%"
+            dominant-baseline="middle"
+            text-anchor="middle"
+            font-family="Roboto, sans-serif"
+            font-size="24"
+            fill="#0284c7"
+          >
+            Devices UI
+          </text>
+        </svg>
+        } @else if (item.id === 'autofill') {
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+          <rect width="400" height="300" rx="14" fill="#f0fdf4" />
+          <text
+            x="50%"
+            y="50%"
+            dominant-baseline="middle"
+            text-anchor="middle"
+            font-family="Roboto, sans-serif"
+            font-size="24"
+            fill="#16a34a"
+          >
+            Autofill UI
+          </text>
+        </svg>
+        }
+      </div>
+      }
+    </div>
+
+    <div class="text-items">
+      @for (item of items(); track item.id; let i = $index) {
+      <div
+        class="item"
+        [class.is-active]="i === activeIndex()"
+        (click)="selectItem(i)"
+        role="button"
+        tabindex="0"
+      >
+        <div class="item-progress-bar-vertical"><div class="item-progress-fill"></div></div>
+        <div class="item-main-content">
+          <div class="item-header">
+            <h3 class="item-title">{{ item.title }}</h3>
+          </div>
+          <div class="item-content">
+            <div class="content-inner">
+              <p>{{ item.description }}</p>
+              @if (item.cta) {
+              <a href="#" class="item-cta" (click)="$event.stopPropagation()">{{ item.cta }}</a> }
+            </div>
+          </div>
+        </div>
+      </div>
+      }
+      <a href="#" class="final-cta"> Pour commencer, veuillez vous connecter </a>
+    </div>
+  </div>
+
+  <div class="accordion-mobile">
+    @for (item of items(); track item.id) {
+    <div class="mobile-item">
+      <div class="mobile-visual">
+        @if (item.id === 'customize') {
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+          <rect width="400" height="300" rx="14" fill="#fefce8" />
+          <text
+            x="50%"
+            y="50%"
+            dominant-baseline="middle"
+            text-anchor="middle"
+            font-family="Roboto, sans-serif"
+            font-size="24"
+            fill="#ca8a04"
+          >
+            Customize UI
+          </text>
+        </svg>
+        } @else if (item.id === 'devices') {
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+          <rect width="400" height="300" rx="14" fill="#f0f9ff" />
+          <text
+            x="50%"
+            y="50%"
+            dominant-baseline="middle"
+            text-anchor="middle"
+            font-family="Roboto, sans-serif"
+            font-size="24"
+            fill="#0284c7"
+          >
+            Devices UI
+          </text>
+        </svg>
+        } @else if (item.id === 'autofill') {
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+          <rect width="400" height="300" rx="14" fill="#f0fdf4" />
+          <text
+            x="50%"
+            y="50%"
+            dominant-baseline="middle"
+            text-anchor="middle"
+            font-family="Roboto, sans-serif"
+            font-size="24"
+            fill="#16a34a"
+          >
+            Autofill UI
+          </text>
+        </svg>
+        }
+      </div>
+      <div class="mobile-text">
+        <h3 class="item-title">{{ item.title }}</h3>
+        <p>{{ item.description }}</p>
+        @if (item.cta) { <a href="#" class="item-cta">{{ item.cta }}</a> }
+      </div>
+    </div>
+    }
+    <a href="#" class="final-cta"> Pour commencer, veuillez vous connecter </a>
+  </div>
+</div>

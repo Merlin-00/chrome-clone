@@ -1,0 +1,118 @@
+:host {
+  display: block;
+}
+
+.keyframe-container {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 3rem;
+  align-items: center;
+  max-width: var(--container-max-width, 1120px);
+  margin: 0 auto;
+  width: 100vw;
+}
+
+.text-content {
+  .title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+  }
+  .description {
+    color: var(--text-color-muted, #6b7280);
+    line-height: 1.6;
+  }
+  .cta {
+    display: inline-block;
+    margin-top: 1.5rem;
+    padding: 0.75rem 1.5rem;
+    background-color: #eef2ff;
+    border-radius: 99px;
+    color: var(--primary-color, #1a73e8);
+    text-decoration: none;
+    font-weight: 500;
+  }
+}
+
+.visual-content {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: visible;
+}
+
+.layers-wrapper {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  width: 100%;
+  height: 100%;
+}
+
+.layer {
+  position: absolute;
+  will-change: transform, opacity;
+}
+
+.layer-browser {
+  width: 80%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  app-skeleton {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.icon-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  opacity: 0;
+  z-index: 10;
+  mat-icon {
+    font-size: 32px;
+  }
+}
+
+.layer-cart {
+  width: 80px;
+  height: 80px;
+  top: 10%;
+  left: 5%;
+  background-color: #a5b4fc;
+  mat-icon {
+    color: #3730a3;
+  }
+}
+.layer-clipboard {
+  width: 80px;
+  height: 80px;
+  top: 15%;
+  right: -2%;
+  background-color: #f1f5f9;
+  mat-icon {
+    color: #334155;
+  }
+}
+.layer-calendar {
+  width: 60px;
+  height: 60px;
+  bottom: 5%;
+  right: 10%;
+  background-color: #fca5a5;
+  mat-icon {
+    color: #b91c1c;
+  }
+}
+.layer-pencil {
+  width: 60px;
+  height: 60px;
+  bottom: 20%;
+  left: 0;
+  background-color: #86efac;
+  mat-icon {
+    color: #15803d;
+  }
+}

@@ -1,0 +1,18 @@
+<div class="sidenav__backdrop" (click)="close()"></div>
+
+<aside class="sidenav">
+  <div class="sidenav__header">
+    <span class="sidenav__title">Menu</span>
+    <mat-icon class="close-icon" (click)="close()">close</mat-icon>
+  </div>
+
+  <nav class="sidenav__links">
+    <a href="#features" (click)="close()">Fonctionnalités</a>
+    <a href="#yours" (click)="close()">Partout avec vous</a>
+    <a href="#faq" (click)="close()">FAQ</a>
+  </nav>
+
+  <div class="sidenav__cta">
+    <button class="btn-primary" (click)="close()">Télécharger Chrome</button>
+  </div>
+</aside>

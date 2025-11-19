@@ -1,0 +1,83 @@
+<div class="app-features-root container" #root>
+  <nav class="app-features-nav" #navContainer aria-label="Navigation des fonctionnalités">
+    <div class="app-features-nav__mobile-toggle">
+      <button type="button" (click)="toggleMobileMenu()">
+        <span>{{ activeAnchor() }}</span>
+        <mat-icon>unfold_more</mat-icon>
+      </button>
+    </div>
+    <ul class="app-features-nav__list" #navList [class.is-open]="isMobileMenuOpen()">
+      <li class="app-features-nav__glider" #glider></li>
+      <li class="app-features-nav__item">
+        <a
+          href="#updates"
+          class="app-features-nav__link"
+          [class.is-active]="isActive('updates')"
+          (click)="closeMobileMenu()"
+          >Mises à jour</a
+        >
+      </li>
+      <li class="app-features-nav__item">
+        <a
+          href="#yours"
+          class="app-features-nav__link"
+          [class.is-active]="isActive('yours')"
+          (click)="closeMobileMenu()"
+          >À vous</a
+        >
+      </li>
+      <li class="app-features-nav__item">
+        <a
+          href="#safe"
+          class="app-features-nav__link"
+          [class.is-active]="isActive('safe')"
+          (click)="closeMobileMenu()"
+          >Sécurisé</a
+        >
+      </li>
+      <li class="app-features-nav__item">
+        <a
+          href="#fast"
+          class="app-features-nav__link"
+          [class.is-active]="isActive('fast')"
+          (click)="closeMobileMenu()"
+          >Rapide</a
+        >
+      </li>
+      <li class="app-features-nav__item">
+        <a
+          href="#by-google"
+          class="app-features-nav__link"
+          [class.is-active]="isActive('by-google')"
+          (click)="closeMobileMenu()"
+          >Par Google</a
+        >
+      </li>
+    </ul>
+
+    <div class="app-features-nav__cta-container">
+      <button class="btn-primary">
+        Télécharger
+        <mat-icon>download</mat-icon>
+      </button>
+    </div>
+  </nav>
+
+  <div class="app-features-content">
+    <div id="updates" class="feature-section-wrapper">
+      <app-updates></app-updates>
+    </div>
+    <div id="yours" class="feature-section-wrapper">
+      <app-yours></app-yours>
+    </div>
+    <div id="safe" class="feature-section-wrapper">
+      <app-safe></app-safe>
+    </div>
+    <div id="fast" class="feature-section-wrapper">
+      <app-fast></app-fast>
+    </div>
+    <div id="by-google" class="feature-section-wrapper">
+      <app-by-google></app-by-google>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,67 @@
+<section id="by-google" class="by-google-section" #section>
+  <div class="container">
+    <header class="by-google-header">
+      <h2 class="by-google-title">
+        Le navigateur
+        <span class="pill-wrapper" #pill>
+          <span class="pill">
+            @for (char of pillText; track $index) {
+            <span class="pill-char" [style.--animation-delay.ms]="$index * 20">{{ char }}</span>
+            }
+          </span>
+        </span>
+        <br />
+        par Google
+      </h2>
+    </header>
+
+    <!-- Carte IA (statique) -->
+    <div class="ai-card">
+      <div class="ai-text-content">
+        <span class="ai-eyebrow">IA Google</span>
+        <h3 class="ai-title">Accédez aux superpouvoirs de l'IA pendant votre navigation.</h3>
+        <p class="ai-description">
+          Google intègre l'IA à ses produits pour les rendre plus utiles. Nous utilisons l'IA pour
+          des fonctionnalités telles que la Recherche, Google Traduction et bien d'autres.
+        </p>
+        <a href="#" class="ai-cta">Découvrez l'IA Google</a>
+      </div>
+      <div class="ai-visual">
+        <svg viewBox="0 0 200 100">
+          <circle cx="100" cy="50" r="20" fill="#4285F4" />
+          <text x="100" y="53" text-anchor="middle" font-size="20" fill="white" font-weight="bold">
+            G
+          </text>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Grille des cartes interactives -->
+    <div class="cards-grid">
+      @for (card of cards(); track card.id) {
+      <div
+        class="card-container"
+        [style.grid-area]="card.gridArea"
+        [class.is-flipped]="isFlipped(card.id)"
+        (click)="toggleCard(card.id)"
+      >
+        <div class="card-face card-front" [ngClass]="'variant--' + card.variant">
+          <div class="front-content">
+            <span class="front-eyebrow">{{ card.front.eyebrow }}</span>
+            <h4 class="front-title">{{ card.front.title }}</h4>
+          </div>
+          <button class="toggle-btn"><mat-icon>add</mat-icon></button>
+        </div>
+
+        <div class="card-face card-back" [ngClass]="'variant--' + card.variant">
+          <p class="back-content">{{ card.back.content }}</p>
+          <a href="#" class="back-cta" (click)="$event.stopPropagation()">{{ card.back.cta }}</a>
+          <button class="toggle-btn" (click)="toggleCard(card.id); $event.stopPropagation()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,62 @@
+<section id="yours" class="yours-section" #section>
+  <div class="container yours-title-mobile">
+    <h2 class="yours-title">
+      <span class="pill-wrapper is-animated">
+        <span class="pill" aria-hidden="true">
+          @for (char of pillText; track $index) {
+          <span class="pill-char" [style.--animation-delay.ms]="$index * 20">
+            {{ char === ' ' ? '&nbsp;' : char }}
+          </span>
+          }
+        </span>
+      </span>
+      <br />
+      et emportez-le partout
+    </h2>
+  </div>
+  <div class="take-over-wrapper">
+    <div class="take-over-container" #stickyContainer>
+      <div class="take-over-sticky-content">
+        <div class="container title-container">
+          <h2 class="yours-title">
+            <span class="pill-wrapper" #pill>
+              <span class="pill" aria-hidden="true">
+                @for (char of pillText; track $index) {
+                <span class="pill-char" [style.--animation-delay.ms]="$index * 20">
+                  {{ char === ' ' ? '&nbsp;' : char }}
+                </span>
+                }
+              </span>
+            </span>
+            <br />
+            et emportez-le partout
+          </h2>
+        </div>
+        <div class="animation-wrapper" #animationWrapper>
+          <div class="animation-mask">
+            <div class="take-over-image background-image"></div>
+
+            <div class="take-over-image first-capture">
+              <div class="skeleton-viewport">
+                <app-skeleton type="search-ui"></app-skeleton>
+              </div>
+            </div>
+
+            <div class="take-over-image second-capture">
+              <div class="skeleton-viewport">
+                <app-skeleton type="dark-mode-ui"></app-skeleton>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="timed-accordion-block">
+    <app-timed-accordion></app-timed-accordion>
+  </div>
+  <div class="keyframe-animation-block take-over-wrapper">
+    <app-keyframe-animation></app-keyframe-animation>
+  </div>
+</section>

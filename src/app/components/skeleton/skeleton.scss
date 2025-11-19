@@ -1,0 +1,50 @@
+:host {
+  display: block;
+  height: 100%;
+  width: auto;
+}
+
+.skeleton {
+  display: block;
+  height: 100%;
+  width: auto;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  align-items: center;
+  justify-content: center;
+}
+
+.skeleton svg,
+.skeleton img {
+  display: block;
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  border-radius: inherit;
+  box-shadow: var(--shadow-soft);
+  object-fit: contain;
+}
+
+.skeleton text {
+  user-select: none;
+  pointer-events: none;
+  font-weight: 600;
+}
+
+.skeleton[data-type='login-ui'] {
+  aspect-ratio: 260 / 420;
+}
+
+.skeleton[data-type='search-ui'],
+.skeleton[data-type='dark-mode-ui'] {
+  aspect-ratio: 727 / 444;
+}
+
+@media (max-width: 900px) {
+  .skeleton svg,
+  .skeleton img {
+    border-radius: 10px;
+  }
+}

@@ -1,0 +1,44 @@
+<section id="updates" class="updates" aria-labelledby="updates-title">
+  <div class="container">
+    <header class="updates-header">
+      <h2 id="updates-title" class="updates-title">
+        Découvrez les dernières
+        <br />
+        <span class="pill-wrapper">
+          <span class="pill" aria-hidden="true">
+            @for (char of pillText(); track $index) {
+            <span class="pill-char" [style.--animation-delay]="$index * 20 + 'ms'">
+              {{ char === ' ' ? '\u00A0' : char }}
+            </span>
+            }
+          </span>
+        </span>
+        de Chrome
+      </h2>
+    </header>
+
+    <div class="updates-grid" role="list">
+      @for (card of cards(); track card.id) {
+      <article
+        role="listitem"
+        class="update-card"
+        [attr.data-id]="card.id"
+        [style.background]="card.bg"
+        [attr.aria-labelledby]="'card-' + card.id"
+      >
+        <div class="card-inner">
+          <h3 id="{{ 'card-' + card.id }}" class="card-title">{{ card.title }}</h3>
+          <p class="card-body">{{ card.body }}</p>
+          <div class="card-actions">
+            <a class="card-link" [attr.href]="card.href || '#'">
+              {{ card.cta || 'En savoir plus' }}
+            </a>
+          </div>
+        </div>
+      </article>
+      } @empty {
+      <p class="muted">Aucune mise à jour pour le moment.</p>
+      }
+    </div>
+  </div>
+</section>

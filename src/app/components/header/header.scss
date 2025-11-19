@@ -1,0 +1,125 @@
+@use 'mixins' as *;
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 64px;
+  z-index: 1000;
+  background-color: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  transition: all var(--transition-medium);
+
+  .header__inner {
+    @include container;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* ---------- Logo ---------- */
+  .header__logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .logo-img {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+    }
+
+    .logo-text {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--color-text);
+    }
+  }
+
+  /* ---------- Navigation ---------- */
+  .header__nav {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+
+    .nav-link {
+      font-weight: 500;
+      color: var(--color-text);
+      transition: color var(--transition-fast);
+      text-decoration: none;
+
+      &:hover {
+        color: var(--color-primary);
+      }
+    }
+  }
+
+  /* ---------- CTA ---------- */
+  .header__cta {
+    button {
+      font-size: 0.95rem;
+      border-radius: var(--radius);
+      padding: 0.4rem 1.2rem;
+      font-weight: 500;
+    }
+  }
+
+  /* ---------- Burger Menu ---------- */
+  .header__menu {
+    display: none;
+    color: var(--color-text);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+
+    mat-icon {
+      font-size: 28px;
+      line-height: 1;
+    }
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* 🔹 Responsive Design
+   -------------------------------------------------------------------------- */
+@include respond-to('tablet') {
+  .header {
+    height: 60px;
+
+    .header__inner {
+      justify-content: space-between;
+    }
+
+    .header__nav {
+      display: none;
+    }
+
+    .header__cta {
+      display: none;
+    }
+
+    .header__menu {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+
+@include respond-to('mobile') {
+  .header {
+    height: 56px;
+
+    .header__logo .logo-text {
+      font-size: 1rem;
+    }
+
+    .header__menu mat-icon {
+      font-size: 26px;
+    }
+  }
+}

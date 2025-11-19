@@ -1,0 +1,61 @@
+<section id="safe" class="safe-section" #section>
+  <div class="container">
+    <header class="safe-header">
+      <h2 class="safe-title">
+        Parcourez le Web avec
+        <br />
+        un navigateur
+        <span class="pill-wrapper" #pill>
+          <span class="pill">
+            @for (char of pillText; track $index) {
+            <span class="pill-char" [style.--animation-delay.ms]="$index * 20">
+              {{ char === ' ' ? '&nbsp;' : char }}
+            </span>
+            }
+          </span>
+        </span>
+      </h2>
+    </header>
+
+    <div class="cards-grid">
+      @for (card of cards(); track card.id) {
+      <div
+        class="card-container"
+        [style.grid-area]="card.gridArea"
+        [class.is-flipped]="isFlipped(card.id)"
+        (click)="flipCard(card.id)"
+      >
+        <div class="card-face card-front" [ngClass]="'variant--' + card.variant">
+          <div class="card-content">
+            <h3 class="front-title">{{ card.front.title }}</h3>
+            <div class="front-body">
+              @switch (card.id) { @case ('password-manager') {
+              <div class="password-mock">
+                <input type="password" value="************" readonly />
+              </div>
+              } @case ('privacy-guide') {
+              <div class="guide-mock"><mat-icon>security</mat-icon></div>
+              } @default { <span>{{ card.front.content }}</span> } }
+            </div>
+            @if (card.front.icon) { <mat-icon class="front-icon">{{ card.front.icon }}</mat-icon> }
+          </div>
+        </div>
+
+        <div class="card-face card-back" [ngClass]="'variant--' + card.variant">
+          <div class="card-content">
+            <h3 class="back-title">{{ card.back.title }}</h3>
+            <p class="back-description">{{ card.back.content }}</p>
+            <a href="#" class="back-cta" (click)="$event.stopPropagation()">
+              {{ card.back.cta }}
+              <mat-icon>arrow_forward</mat-icon>
+            </a>
+            <button class="close-btn" (click)="flipCard(card.id); $event.stopPropagation()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+</section>

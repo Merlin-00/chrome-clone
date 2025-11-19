@@ -1,0 +1,172 @@
+@use 'mixins' as *;
+
+:host {
+  --primary-color-soft-bg: #e8f0fe;
+}
+
+.app-features-root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  position: relative;
+}
+
+.app-features-nav {
+  position: sticky;
+  top: 7vh;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 99px;
+  background-color: #f1f3f4;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  transition: top 0.3s ease-in-out;
+}
+
+.app-features-nav__list {
+  position: relative;
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.app-features-nav__glider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: #e8f0fe;
+  border-radius: 99px;
+  z-index: 0;
+}
+
+.app-features-nav__link {
+  position: relative;
+  z-index: 1;
+  padding: 0.75rem 1.25rem;
+  border-radius: 99px;
+  text-decoration: none;
+  font-weight: 500;
+  color: #5f6368;
+  transition: color 0.2s ease-in-out;
+
+  &.is-active {
+    color: var(--color-primary);
+  }
+}
+
+.app-features-nav__cta-container {
+  margin-left: 0.5rem;
+}
+
+.app-features-nav__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+
+  mat-icon {
+    width: 1rem;
+    height: 1rem;
+    font-size: 1rem;
+  }
+}
+.app-features-nav__mobile-toggle {
+  display: none;
+}
+
+.app-features-content {
+  width: 100%;
+}
+
+@include respond-to('mobile') {
+  .app-features-nav {
+    // On garde la position fixe en bas
+    top: auto;
+    bottom: 1rem;
+    position: fixed;
+    width: calc(100% - 2rem);
+    left: 1rem;
+    right: 1rem;
+
+    // 👇 LA CORRECTION EST ICI 👇
+    // On la rend visible par défaut, et on gère la transition
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition: transform 0.4s var(--ease-standard), opacity 0.4s var(--ease-standard);
+
+    // La classe .is-hidden, gérée par le TS, la fera disparaître
+    &.is-hidden {
+      transform: translateY(calc(100% + 2rem));
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+
+  // Le reste de tes styles mobiles est parfait, on n'y touche pas
+  .app-features-nav__list {
+    position: absolute;
+    bottom: calc(100% + 0.5rem);
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    border-radius: 12px;
+    padding: 0.5rem;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.2s ease;
+    background-color: var(--color-bg);
+
+    &.is-open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+  }
+
+  .app-features-nav__glider {
+    display: none;
+  }
+
+  .app-features-nav__link {
+    display: block;
+    text-align: center;
+    &.is-active {
+      background-color: var(--primary-color-soft-bg);
+    }
+  }
+
+  .app-features-nav__mobile-toggle {
+    display: block;
+    flex-grow: 1;
+
+    button {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1.25rem;
+      border-radius: 99px;
+      background-color: #f1f3f4;
+      border: none;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #1a73e8;
+      text-transform: capitalize;
+    }
+  }
+
+  .app-features-nav {
+    .app-features-nav__cta-container {
+      margin-left: 0.5rem;
+    }
+  }
+}

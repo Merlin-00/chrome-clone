@@ -1,0 +1,45 @@
+<footer class="app-footer">
+  <div class="container">
+    <!-- Partie supérieure avec les liens sociaux et les colonnes -->
+    <div class="footer-main">
+      <div class="social-section">
+        <span>Suivez-nous</span>
+        <div class="social-links">
+          <a
+            *ngFor="let social of socialLinks()"
+            [href]="social.url"
+            [attr.aria-label]="social.name"
+          >
+            <!-- On utilisera des icônes SVG ou une lib d'icônes ici -->
+            <!-- Pour l'instant, un placeholder texte -->
+            {{ social.name.charAt(0) }}
+          </a>
+        </div>
+      </div>
+      <nav class="links-grid">
+        <div *ngFor="let column of columns()" class="links-column">
+          <h4 class="column-title">{{ column.title }}</h4>
+          <ul>
+            <li *ngFor="let link of column.links">
+              <a [href]="link.url">{{ link.text }}</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Partie inférieure avec les liens légaux et le logo -->
+    <div class="footer-bottom">
+      <div class="bottom-left">
+        <span class="google-logo">Google</span>
+        <a href="#">Confidentialité et conditions d'utilisation</a>
+        <a href="#">À propos de Google</a>
+        <a href="#">Produits Google</a>
+      </div>
+      <div class="bottom-right">
+        <a href="#">Aide</a>
+        <span>Français - France</span>
+      </div>
+    </div>
+  </div>
+</footer>

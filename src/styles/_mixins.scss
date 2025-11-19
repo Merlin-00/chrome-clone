@@ -1,0 +1,78 @@
+/* ==========================================================================
+   🧩 MIXINS GLOBAUX
+   Ces mixins sont partagés par tout le projet
+   pour gérer le responsive et les layouts fluides.
+   ========================================================================== */
+
+/* -------------------------------------------------------------------------- */
+/* 🔸 Breakpoints standardisés
+   On utilise une approche mobile-first
+   -------------------------------------------------------------------------- */
+$bp-mobile: 600px;
+$bp-tablet: 900px;
+$bp-desktop: 1200px;
+
+@mixin respond-to($device) {
+  @if $device == 'mobile' {
+    @media (max-width: #{$bp-mobile}) {
+      @content;
+    }
+  } @else if $device == 'tablet' {
+    @media (max-width: #{$bp-tablet}) {
+      @content;
+    }
+  } @else if $device == 'desktop' {
+    @media (min-width: #{$bp-desktop}) {
+      @content;
+    }
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* 🔹 Container Helper (centered layout)
+   Utilisé pour centrer tout contenu principal
+   -------------------------------------------------------------------------- */
+@mixin container {
+  width: 100%;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+/* -------------------------------------------------------------------------- */
+/* 🔹 Fluid Typography
+   Génère des tailles adaptatives avec clamp()
+   Exemple: @include fluid-type(16, 24);
+   -------------------------------------------------------------------------- */
+@mixin fluid-type($min, $max) {
+  font-size: clamp(#{$min}px, 1vw + #{$min}px, #{$max}px);
+}
+
+/* -------------------------------------------------------------------------- */
+/* 🔹 Flex & Grid Helpers
+   Pour écrire du layout propre sans répéter
+   -------------------------------------------------------------------------- */
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin grid-center($columns: 2, $gap: 2rem) {
+  display: grid;
+  grid-template-columns: repeat($columns, 1fr);
+  gap: $gap;
+  align-items: center;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 🔹 Shadow Helper
+   Pour appliquer des ombres uniformes
+   -------------------------------------------------------------------------- */
+@mixin shadow($type: soft) {
+  @if $type == 'soft' {
+    box-shadow: var(--shadow-soft);
+  } @else if $type == 'medium' {
+    box-shadow: var(--shadow-medium);
+  }
+}

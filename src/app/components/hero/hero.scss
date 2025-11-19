@@ -1,0 +1,231 @@
+@use 'mixins' as *;
+
+:root {
+  --mosaic-card-height: clamp(180px, 28vmin, 420px);
+}
+
+:host {
+  display: block;
+}
+
+.hero {
+  min-height: 90vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  background: #fff;
+  padding-top: 10vh;
+  overflow: visible;
+}
+
+.hero__wrapper {
+  z-index: 10;
+  position: relative;
+}
+
+.hero__headline {
+  font-size: clamp(2rem, 6vw, 4.2rem);
+  font-weight: 800;
+  line-height: 1.05;
+  margin: 0.5em 0;
+  color: #202124;
+}
+
+.hero__download-btn {
+  background: #1a73e8;
+  color: #fff;
+  border: none;
+  padding: 12px 26px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(26, 115, 232, 0.3);
+}
+
+.mosaic {
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+  overflow: hidden;
+  margin-top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mosaic__scaler {
+  transform: scale(0.7);
+}
+
+.mosaic__track {
+  display: flex;
+  gap: 1.5vw;
+  align-items: center;
+  will-change: transform;
+}
+
+.mosaic__card {
+  flex: 0 0 auto;
+  height: 510px;
+  min-height: 320px;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  background: #fff;
+  overflow: visible;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  position: relative;
+}
+.mosaic__card:nth-child(2) {
+  // On définit une variable pour l'opacité, pilotable par GSAP
+  --card-opacity: 0;
+  opacity: var(--card-opacity);
+  visibility: hidden; // On la cache complètement au départ
+}
+
+.mosaic__card--center {
+  width: auto;
+  min-width: 0;
+  z-index: 3;
+}
+
+.mosaic__card--left,
+.mosaic__card--right {
+  width: auto;
+  min-width: 0;
+  z-index: 2;
+}
+
+.mosaic__card--extra {
+  width: auto;
+  min-width: 0;
+  z-index: 1;
+}
+
+@include respond-to('tablet') {
+  :root {
+    --mosaic-card-height: 300px;
+  }
+  .mosaic__scaler {
+    transform: scale(0.8);
+  }
+}
+
+@include respond-to('mobile') {
+  .mosaic__scaler {
+    transform: none !important;
+    transform-origin: center center;
+  }
+
+  .mosaic {
+    margin-top: 3.25rem;
+    overflow: visible;
+    z-index: 1;
+  }
+
+  .mosaic__track {
+    display: flex !important;
+    justify-content: center;
+    align-items: flex-start !important;
+    gap: 0;
+    padding: 0 2vw 2.25rem;
+    transform: none !important;
+  }
+
+  .mosaic__card {
+    display: none !important;
+    box-sizing: border-box;
+    transform: none !important;
+  }
+
+  .mosaic__card:nth-child(4) {
+    display: inline-flex !important;
+    align-items: flex-start;
+    justify-content: center;
+    width: min(72vw, 220px);
+    aspect-ratio: 11 / 20;
+    height: auto;
+    padding: 0;
+    margin: 0 (6vw);
+    z-index: 4;
+    border-radius: 12px;
+
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .mosaic__card:nth-child(3) {
+    display: inline-flex !important;
+    width: min(46vw, 140px);
+    aspect-ratio: 7 / 12;
+    height: auto;
+    margin-left: -28px;
+    margin-right: -12px;
+    align-items: flex-start;
+    justify-content: center;
+    z-index: 3;
+    transform: translateY(6px);
+    border-radius: 10px;
+    margin-top: 5vh;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+
+    filter: brightness(0.95) blur(1px);
+    transition: transform 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .mosaic__card:nth-child(5) {
+    display: inline-flex !important;
+    width: min(46vw, 140px);
+    aspect-ratio: 7 / 12;
+    height: auto;
+    margin-left: -12px;
+    margin-right: -28px;
+    align-items: flex-start;
+    justify-content: center;
+    z-index: 2;
+    transform: translateY(12px);
+    border-radius: 10px;
+    margin-top: 5vh;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    filter: brightness(0.95) blur(1px);
+
+    transition: transform 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .mosaic__track:hover .mosaic__card:nth-child(4) {
+    transform: translateY(-5px) scale(1.02);
+  }
+
+  .mosaic__track:hover .mosaic__card:nth-child(3),
+  .mosaic__track:hover .mosaic__card:nth-child(5) {
+    filter: brightness(1) blur(0);
+  }
+
+  .skeleton {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+  .skeleton svg,
+  .skeleton img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    max-width: none;
+    border-radius: inherit;
+  }
+
+  .mosaic__card * {
+    position: relative !important;
+  }
+}

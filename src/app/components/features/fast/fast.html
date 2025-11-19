@@ -1,0 +1,60 @@
+<section class="fast-section-wrapper">
+  <div class="fast-scroll-container" #scrollContainer>
+    <div id="fast" class="fast-sticky-content" #section>
+      <div class="container">
+        <header class="fast-header">
+          <h2 class="fast-title">
+            La solution
+            <span class="pill-wrapper" #pill>
+              <span class="pill">
+                @for (char of pillText; track $index) {
+                <span class="pill-char" [style.--animation-delay.ms]="$index * 20">{{ char }}</span>
+                }
+              </span>
+            </span>
+            <br />
+            pour effectuer des tâches en ligne
+          </h2>
+        </header>
+      </div>
+
+      <div class="carousel-wrapper">
+        <div class="carousel-track" #track>
+          @for (card of cards(); track card.id; let i = $index) {
+          <div
+            class="fast-card"
+            [class.is-feature]="card.isFeature"
+            [style.background-color]="card.bgColor"
+            [style.color]="card.textColor"
+          >
+            @if (card.isFeature) {
+            <div class="feature-card-content">
+              <div class="text-content">
+                <h3 class="title">{{ card.title }}</h3>
+                <p class="description">{{ card.description }}</p>
+                <a href="#" class="cta">{{ card.cta }} <mat-icon>arrow_forward</mat-icon></a>
+              </div>
+              <div class="visual-content">
+                <app-skeleton type="search-ui"></app-skeleton>
+              </div>
+            </div>
+            } @else {
+            <div class="normal-card-content">
+              <h3 class="title">{{ card.title }}</h3>
+              <p class="description">{{ card.description }}</p>
+              <div class="visual-content-normal">
+                @if (i === 1) {
+                <app-skeleton type="dark-mode-ui"></app-skeleton>
+                } @else {
+                <app-skeleton type="search-ui"></app-skeleton>
+                }
+              </div>
+            </div>
+            }
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

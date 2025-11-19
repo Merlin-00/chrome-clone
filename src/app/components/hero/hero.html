@@ -1,0 +1,38 @@
+<section class="hero" #container>
+  <div class="hero__wrapper">
+    <div class="hero__logo">
+      <img src="assets/chrome.png" alt="Chrome logo" width="63" height="63" class="logo-img" />
+    </div>
+
+    <h1 class="hero__headline" #headline>
+      Le navigateur <br />
+      à votre image
+    </h1>
+
+    <div class="hero__cta">
+      <button type="button" class="hero__download-btn">Télécharger Chrome</button>
+    </div>
+  </div>
+
+  <div class="mosaic" #mosaic>
+    <div class="mosaic__scaler">
+      <div class="mosaic__track" #track>
+        <article class="mosaic__card mosaic__card--left">
+          <app-skeleton type="search-ui"></app-skeleton>
+        </article>
+        <article class="mosaic__card mosaic__card--extra">
+          <app-skeleton type="login-ui"></app-skeleton>
+        </article>
+        <article class="mosaic__card mosaic__card--center">
+          <app-skeleton type="search-ui"></app-skeleton>
+        </article>
+        <article class="mosaic__card mosaic__card--extra">
+          <app-skeleton type="login-ui"></app-skeleton>
+        </article>
+        <article class="mosaic__card mosaic__card--right">
+          <app-skeleton type="search-ui"></app-skeleton>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
