@@ -36,3 +36,23 @@
     </div>
   </div>
 </section>
+
+<!-- QR widget: show only on large screens -->
+@if (isLarge()) {
+<div class="footer-qr-widget" (click)="toggleQr()">
+  @if (qrExpanded()) {
+  <div class="footer-qr-code">
+    <div class="item1">
+      <img src="assets/chrome_qr_code.png" alt="QR Code Télécharger Chrome" class="qr-image" />
+      <mat-icon class="arrow1">arrow_forward_ios</mat-icon>
+    </div>
+    <span class="qr-text">Télécharger Chrome pour votre téléphone</span>
+  </div>
+  } @else {
+  <div class="item2">
+    <mat-icon>tablet_android</mat-icon>
+    <mat-icon class="arrow2">arrow_back_ios</mat-icon>
+  </div>
+  }
+</div>
+}
