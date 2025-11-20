@@ -1,18 +1,31 @@
 <div class="sidenav__backdrop" (click)="close()"></div>
 
-<aside class="sidenav">
-  <div class="sidenav__header">
-    <span class="sidenav__title">Menu</span>
-    <mat-icon class="close-icon" (click)="close()">close</mat-icon>
-  </div>
+<div class="drawer-wrapper">
+  <aside class="sidenav">
+    <div class="drawer-content">
+      <div>
+        <div class="drawer-header">
+          <a routerLink="/" class="logo-link">
+            <img style="width: 30px; height: 30px;" src="assets/chrome.png" alt="logo" />
+            <span class="sidenav__title">Chrome</span>
+          </a>
+        </div>
+        <br>
+        <mat-nav-list class="sidenav__links">
+          <a mat-list-item href="#" (click)="close()">Sécurité</a>
+          <a mat-list-item href="#" (click)="close()">Par Google</a>
+          <a mat-list-item href="#" (click)="close()">Extensions
+            <mat-icon class="external">arrow_outward</mat-icon>
+          </a>
+        </mat-nav-list>
+      </div>
 
-  <nav class="sidenav__links">
-    <a href="#features" (click)="close()">Fonctionnalités</a>
-    <a href="#yours" (click)="close()">Partout avec vous</a>
-    <a href="#faq" (click)="close()">FAQ</a>
-  </nav>
-
-  <div class="sidenav__cta">
-    <button class="btn-primary" (click)="close()">Télécharger Chrome</button>
-  </div>
-</aside>
+      <div class="drawer-footer">
+        <button class="btn-primary" (click)="close()">Télécharger Chrome</button>
+      </div>
+    </div>
+    <button mat-icon-button class="close-btn" (click)="close()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </aside>
+</div>
