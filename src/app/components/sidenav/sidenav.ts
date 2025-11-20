@@ -1,5 +1,5 @@
 import { Component, ElementRef, ChangeDetectionStrategy, effect, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { SidenavService } from '../../services/sidenav';
 import gsap from 'gsap';
@@ -8,7 +8,7 @@ import { MatNavList } from '@angular/material/list';
 @Component({
   selector: 'app-sidenav',
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatNavList],
+  imports: [CommonModule, MatIconModule, MatNavList, NgOptimizedImage],
   templateUrl: './sidenav.html',
   styleUrls: ['./sidenav.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

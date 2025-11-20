@@ -11,6 +11,7 @@ mat-toolbar.toolbar {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
   display: flex;
   align-items: center;
+  gap: 1.5rem;
   padding: 0 1rem;
 }
 
@@ -28,14 +29,10 @@ mat-toolbar.toolbar {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-weight: 400;
-  font-size: 1.25rem;
-  color: #4f4f4f;
-}
-
-.logo-link img {
-  width: 35px;
-  height: 35px;
+  font-weight: 500;
+  font-size: 23px;
+  color: #636363;
+  cursor: pointer;
 }
 
 .nav-links {
@@ -43,7 +40,8 @@ mat-toolbar.toolbar {
   align-items: center;
   gap: 1.5rem;
   margin-left: 2rem;
-  font-size: 17px;
+  font-size: 30px;
+  font-weight: 500;
 }
 
 @media (max-width: 850px) {

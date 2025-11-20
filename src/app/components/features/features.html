@@ -9,56 +9,31 @@
     <ul class="app-features-nav__list" #navList [class.is-open]="isMobileMenuOpen()">
       <li class="app-features-nav__glider" #glider></li>
       <li class="app-features-nav__item">
-        <a
-          href="#updates"
-          class="app-features-nav__link"
-          [class.is-active]="isActive('updates')"
-          (click)="closeMobileMenu()"
-          >Mises à jour</a
-        >
+        <a href="#updates" class="app-features-nav__link" [class.is-active]="isActive('updates')"
+          (click)="closeMobileMenu()">Mises à jour</a>
       </li>
       <li class="app-features-nav__item">
-        <a
-          href="#yours"
-          class="app-features-nav__link"
-          [class.is-active]="isActive('yours')"
-          (click)="closeMobileMenu()"
-          >À vous</a
-        >
+        <a href="#yours" class="app-features-nav__link" [class.is-active]="isActive('yours')"
+          (click)="closeMobileMenu()">À vous</a>
       </li>
       <li class="app-features-nav__item">
-        <a
-          href="#safe"
-          class="app-features-nav__link"
-          [class.is-active]="isActive('safe')"
-          (click)="closeMobileMenu()"
-          >Sécurisé</a
-        >
+        <a href="#safe" class="app-features-nav__link" [class.is-active]="isActive('safe')"
+          (click)="closeMobileMenu()">Sécurisé</a>
       </li>
       <li class="app-features-nav__item">
-        <a
-          href="#fast"
-          class="app-features-nav__link"
-          [class.is-active]="isActive('fast')"
-          (click)="closeMobileMenu()"
-          >Rapide</a
-        >
+        <a href="#fast" class="app-features-nav__link" [class.is-active]="isActive('fast')"
+          (click)="closeMobileMenu()">Rapide</a>
       </li>
       <li class="app-features-nav__item">
-        <a
-          href="#by-google"
-          class="app-features-nav__link"
-          [class.is-active]="isActive('by-google')"
-          (click)="closeMobileMenu()"
-          >Par Google</a
-        >
+        <a href="#by-google" class="app-features-nav__link" [class.is-active]="isActive('by-google')"
+          (click)="closeMobileMenu()">Par Google</a>
       </li>
     </ul>
 
     <div class="app-features-nav__cta-container">
       <button class="btn-primary">
-        Télécharger
         <mat-icon>download</mat-icon>
+        Télécharger
       </button>
     </div>
   </nav>

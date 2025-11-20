@@ -10,16 +10,16 @@ import {
   afterNextRender,
   signal,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
-import { Skeleton } from '../skeleton/skeleton';
+import { MatCheckbox } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [CommonModule, Skeleton, MatIconModule],
+  imports: [CommonModule, MatIconModule, MatCheckbox, NgOptimizedImage],
   templateUrl: './hero.html',
   styleUrls: ['./hero.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,5 +1,5 @@
 import { Component, ElementRef, ChangeDetectionStrategy, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -9,7 +9,14 @@ import { SidenavService } from '../../services/sidenav';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatButtonModule, MatToolbarModule, MatDividerModule],
+  imports: [
+    CommonModule,
+    MatIconModule,
+    MatButtonModule,
+    MatToolbarModule,
+    MatDividerModule,
+    NgOptimizedImage,
+  ],
   templateUrl: './header.html',
   styleUrls: ['./header.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

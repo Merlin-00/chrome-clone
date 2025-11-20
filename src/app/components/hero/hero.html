@@ -1,36 +1,64 @@
 <section class="hero" #container>
   <div class="hero__wrapper">
     <div class="hero__logo">
-      <img src="assets/chrome.png" alt="Chrome logo" width="63" height="63" class="logo-img" />
+      <img [ngSrc]="'assets/chrome.png'" alt="Chrome logo" width="63" height="63" class="logo-img" decoding="async"
+        loading="lazy" />
     </div>
 
     <h1 class="hero__headline" #headline>
       Le navigateur <br />
       à votre image
-    </h1>
+    </h1><br>
 
-    <div class="hero__cta">
-      <button type="button" class="hero__download-btn">Télécharger Chrome</button>
+
+    <button type="button" class="hero__download-btn"><mat-icon>download</mat-icon>Télécharger Chrome</button>
+    <br />
+    <div class="hero__links">
+      <a class="hero__update-link" href="#">Je souhaite mettre à jour
+        Chrome</a>
+      @if (isLarge()) {
+      <span class="hero__note">Pour Windows 11/10 64-bit</span>
+      }
     </div>
-  </div>
+    @if (isLarge()) {
+    <div class="h-s">
+      <div style="display: flex; align-items: center;">
+        <mat-checkbox></mat-checkbox>
+        <span>
+          Aidez-nous à améliorer Google Chrome en nous envoyant
+          automatiquement des <br> statistiques
+          d'utilisation et des rapports d'erreur. <a class="more" href="#"> En savoir plus</a>
+        </span>
+      </div>
 
+      <span>En téléchargeant Chrome, vous acceptez les <a class="more" href="#">Conditions d'utilisation de Google</a>
+        et les <br> <a class="more" href="#">Conditions
+          d'utilisation supplémentaires de Google Chrome et ChromeOS.</a></span>
+    </div>
+    }
+  </div>
   <div class="mosaic" #mosaic>
     <div class="mosaic__scaler">
       <div class="mosaic__track" #track>
         <article class="mosaic__card mosaic__card--left">
-          <app-skeleton type="search-ui"></app-skeleton>
+          <img class="img1" [ngSrc]="'/assets/sections-images/image1.png'" alt="image1" width="1000" height="600"
+            decoding="async" loading="lazy">
         </article>
         <article class="mosaic__card mosaic__card--extra">
-          <app-skeleton type="login-ui"></app-skeleton>
+          <img class="img2" [ngSrc]="'/assets/sections-images/image2.png'" alt="image2" width="300" height="600"
+            decoding="async" loading="lazy">
         </article>
         <article class="mosaic__card mosaic__card--center">
-          <app-skeleton type="search-ui"></app-skeleton>
+          <img class="img1" [ngSrc]="'/assets/sections-images/image3.png'" alt="image3" width="1000" height="600"
+            decoding="async" loading="lazy">
         </article>
         <article class="mosaic__card mosaic__card--extra">
-          <app-skeleton type="login-ui"></app-skeleton>
+          <img class="img2" [ngSrc]="'/assets/sections-images/image4.png'" alt="image4" width="300" height="600"
+            decoding="async" loading="lazy">
         </article>
         <article class="mosaic__card mosaic__card--right">
-          <app-skeleton type="search-ui"></app-skeleton>
+          <img class="img1" [ngSrc]="'/assets/sections-images/image5.png'" alt="image5" width="1000" height="600"
+            decoding="async" loading="lazy">
         </article>
       </div>
     </div>
@@ -39,20 +67,19 @@
 
 <!-- QR widget: show only on large screens -->
 @if (isLarge()) {
-<div class="footer-qr-widget" (click)="toggleQr()">
-  @if (qrExpanded()) {
-  <div class="footer-qr-code">
-    <div class="item1">
-      <img src="assets/chrome_qr_code.png" alt="QR Code Télécharger Chrome" class="qr-image" />
-      <mat-icon class="arrow1">arrow_forward_ios</mat-icon>
-    </div>
-    <span class="qr-text">Télécharger Chrome pour votre téléphone</span>
+@if (qrExpanded()) {
+<div class="footer-qr-code" (click)="toggleQr()">
+  <div class="item1">
+    <img [ngSrc]="'assets/chrome_qr_code.png'" alt="QR Code Télécharger Chrome" class="qr-image" width="80" height="80"
+      decoding="async" loading="lazy" />
+    <mat-icon class="arrow1">arrow_forward_ios</mat-icon>
   </div>
-  } @else {
-  <div class="item2">
-    <mat-icon>tablet_android</mat-icon>
-    <mat-icon class="arrow2">arrow_back_ios</mat-icon>
-  </div>
-  }
+  <span class="qr-text">Télécharger Chrome pour votre téléphone</span>
 </div>
+} @else {
+<div class="item2" (click)="toggleQr()">
+  <mat-icon>tablet_android</mat-icon>
+  <mat-icon class="arrow2">arrow_back_ios</mat-icon>
+</div>
+}
 }
