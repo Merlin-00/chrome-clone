@@ -32,20 +32,34 @@
             et emportez-le partout
           </h2>
         </div>
+        <!-- ZONE IMAGES -->
         <div class="animation-wrapper" #animationWrapper>
           <div class="animation-mask">
-            <div class="take-over-image background-image"></div>
-
-            <div class="take-over-image first-capture">
-              <div class="skeleton-viewport">
-                <app-skeleton type="search-ui"></app-skeleton>
-              </div>
+            <!-- LAYER 1 (Bottom): Image 10 (Révélée quand la 9 part) -->
+            <div class="take-over-layer layer-bottom">
+              <img
+                src="assets/sections-images/yours/image10.webp"
+                alt="Interface standard"
+                loading="eager"
+              />
             </div>
 
-            <div class="take-over-image second-capture">
-              <div class="skeleton-viewport">
-                <app-skeleton type="dark-mode-ui"></app-skeleton>
-              </div>
+            <!-- LAYER 2 (Middle): Image 9 (Cover initial, elle se clip vers le bas) -->
+            <div class="take-over-layer layer-middle-cover">
+              <img
+                src="assets/sections-images/yours/image9.webp"
+                alt="Interface accueil"
+                loading="eager"
+              />
+            </div>
+
+            <!-- LAYER 3 (Top): Image 11 (Dark mode, arrive à la fin) -->
+            <div class="take-over-layer layer-top-reveal">
+              <img
+                src="assets/sections-images/yours/image11.webp"
+                alt="Interface dark mode"
+                loading="lazy"
+              />
             </div>
           </div>
         </div>

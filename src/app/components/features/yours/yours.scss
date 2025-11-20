@@ -2,15 +2,17 @@
 
 :host {
   --viewport-width: 45vw;
-  --viewport-max-width: 400px;
+  --viewport-max-width: 700px;
   --viewport-height: auto;
   --viewport-radius: 16px;
   --title-translate-y: 0px;
   --title-opacity: 1;
+  --title-scale: 1;
   --curtain-clip: 0%;
   --second-image-clip: 100%;
   --title-z-index: 10;
-  --bg-image-scale: 1.2;
+  --bg-image-scale: 1;
+  --overflow: visible;
 }
 
 .yours-section {
@@ -18,12 +20,13 @@
 }
 
 .title-container {
-  transform: translateY(var(--title-translate-y));
+  transform: translateY(var(--title-translate-y)) scale(var(--title-scale, 1));
   opacity: var(--title-opacity);
-  will-change: transform, opacity, z-index;
+  will-change: transform, opacity;
   @include container;
   position: relative;
   z-index: var(--title-z-index);
+  pointer-events: none;
 }
 
 .yours-title {
@@ -91,80 +94,55 @@
   height: var(--viewport-height);
   aspect-ratio: 727 / 444;
   border-radius: var(--viewport-radius);
+  transform: scale(1.25);
 
   overflow: hidden;
   will-change: width, height, border-radius;
   z-index: 5;
 }
 
-.take-over-image {
+.take-over-layer {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
-.background-image {
-  position: relative;
-  display: block;
-  background: linear-gradient(to right, #2e70b3, #5aa0d8);
-
-  z-index: 2;
-  clip-path: inset(0 0 var(--curtain-clip) 0);
-  transform: scale(var(--bg-image-scale));
-  will-change: transform;
-}
-
-.first-capture,
-.second-capture {
-  app-skeleton {
-    display: block;
+  img {
     width: 100%;
     height: 100%;
-    transform: scale(3);
-    ::ng-deep svg {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: inherit;
-    }
+    object-fit: cover;
+    display: block;
   }
 }
 
-.first-capture {
+.layer-bottom {
   z-index: 1;
 }
-.second-capture {
-  clip-path: inset(var(--second-image-clip) 0 0 0);
+
+.layer-middle-cover {
+  z-index: 2;
+  clip-path: inset(0 0 var(--curtain-clip) 0);
+  transform: scale(var(--bg-image-scale));
+  transform-origin: center center;
+  will-change: transform, clip-path;
+}
+
+.layer-top-reveal {
   z-index: 3;
+  clip-path: inset(var(--second-image-clip) 0 0 0);
+  will-change: clip-path;
 }
 
 .timed-accordion-block,
 .keyframe-animation-block {
-  margin-top: 8rem;
+  margin-top: 4rem;
 }
 
 .yours-title-mobile {
   display: none;
 }
 
-@include respond-to('tablet') {
-  .first-capture,
-  .second-capture {
-    app-skeleton {
-      transform: scale(2);
-      ::ng-deep svg {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: inherit;
-      }
-    }
-  }
-}
 @include respond-to('mobile') {
   .yours-title-mobile {
     display: block;
