@@ -4,7 +4,7 @@
 
 ## 🔗 Live Demo
 
-👉 [Voir le site en ligne sur Vercel](https://chrome-clone-ecru.vercel.app/)
+👉 [Voir le site en ligne sur Vercel](https://chrome-clone-seven.vercel.app/)
 
 ---
 
