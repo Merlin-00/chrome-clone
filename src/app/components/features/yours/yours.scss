@@ -5,8 +5,8 @@
   --viewport-max-width: 700px;
   --viewport-height: auto;
   --viewport-radius: 16px;
+  --viewport-scale: 1;
   --title-translate-y: 0px;
-  --title-opacity: 1;
   --title-scale: 1;
   --curtain-clip: 0%;
   --second-image-clip: 100%;
@@ -21,7 +21,6 @@
 
 .title-container {
   transform: translateY(var(--title-translate-y)) scale(var(--title-scale, 1));
-  opacity: var(--title-opacity);
   will-change: transform, opacity;
   @include container;
   position: relative;
@@ -30,7 +29,7 @@
 }
 
 .yours-title {
-  font-size: var(--font-size-h1);
+  font-size: var(--font-size-h2);
   font-weight: var(--font-weight-bold);
   margin: 0;
 }
@@ -92,12 +91,12 @@
   width: var(--viewport-width);
   max-width: var(--viewport-max-width);
   height: var(--viewport-height);
-  aspect-ratio: 727 / 444;
+  aspect-ratio: 727 / 400;
   border-radius: var(--viewport-radius);
-  transform: scale(1.25);
+  transform: scale(var(--viewport-scale));
 
   overflow: hidden;
-  will-change: width, height, border-radius;
+  will-change: width, height, border-radius, transform;
   z-index: 5;
 }
 

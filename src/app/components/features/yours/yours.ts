@@ -98,7 +98,6 @@ export class Yours implements AfterViewInit, OnDestroy {
       target,
       {
         '--title-translate-y': '20vh',
-        '--title-opacity': 0,
         '--title-scale': 0.4,
         '--title-z-index': 1,
         duration: 0.2,
@@ -112,6 +111,7 @@ export class Yours implements AfterViewInit, OnDestroy {
         '--viewport-max-width': '1200px',
         '--viewport-radius': '4px',
         '--bg-image-scale': 1,
+        '--viewport-scale': 1.35,
         duration: 0.4,
         ease: 'power2.inOut',
       },
