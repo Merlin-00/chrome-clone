@@ -11,22 +11,20 @@ import {
   QueryList,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
-import { Skeleton } from '../../../skeleton/skeleton';
 
 @Component({
   selector: 'app-keyframe-animation',
   standalone: true,
-  imports: [CommonModule, MatIconModule, Skeleton],
+  imports: [CommonModule],
   templateUrl: './keyframe-animation.html',
   styleUrls: ['./keyframe-animation.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class KeyframeAnimation implements AfterViewInit, OnDestroy {
   @ViewChild('container', { static: true }) containerRef!: ElementRef<HTMLElement>;
-  @ViewChildren('layer') layers!: QueryList<ElementRef<HTMLElement>>;
+  @ViewChildren('floatingItem') floatingItems!: QueryList<ElementRef<HTMLElement>>;
 
   private ngZone = inject(NgZone);
   private ctx?: gsap.Context;
@@ -41,53 +39,52 @@ export class KeyframeAnimation implements AfterViewInit, OnDestroy {
     this.ngZone.runOutsideAngular(() => {
       this.ctx = gsap.context(() => {
         const scroller = this.containerRef.nativeElement.closest('.main-scroll-container');
-        if (!scroller) return;
+        const actualScroller = scroller || window;
 
-        const layerElements = this.layers.map((elRef) => elRef.nativeElement);
-        const [browserEl, ...iconEls] = layerElements;
+        const items = this.floatingItems.map((el) => el.nativeElement);
 
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: this.containerRef.nativeElement,
-            scroller: scroller,
-            start: 'top 70%',
-            end: 'bottom 80%',
-            scrub: 1.5,
+            scroller: actualScroller,
+            start: 'top 60%', // Début de l'anim d'entrée
+            end: 'bottom 40%', // Fin de l'anim de sortie
+            scrub: 1, // Synchronisé au scroll
           },
         });
 
-        tl.from(browserEl, {
-          scale: 0.8,
-          autoAlpha: 0,
-          ease: 'power2.out',
-          duration: 0.5,
-        });
-
-        const startPositions = [
-          { x: '-50vw', y: '-10vh' },
-          { x: '50vw', y: '-10vh' },
-          { x: '50vw', y: '10vh' },
-          { x: '-50vw', y: '10vh' },
+        // Offsets pour le positionnement relatif (micro-mouvements)
+        const offsets = [
+          { x: -20, y: -20 }, // Panier
+          { x: -20, y: 20 }, // Accessibilité
+          { x: 0, y: 30 }, // Pinceau
+          { x: 20, y: 20 }, // Movie
+          { x: 20, y: -10 }, // Extension
         ];
+        tl.from(items, {
+          autoAlpha: 0,
+          x: (i) => (offsets[i]?.x || 0) * 5,
+          y: (i) => (offsets[i]?.y || 0) * 5,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: 'power3.out',
+        });
 
-        tl.fromTo(
-          iconEls,
+        // 2. PAUSE (Gap visuel pour qu'ils restent affichés un moment)
+        tl.addLabel('pause', '+=0.5');
+
+        // 3. SORTIE (Disparition / Dispersion — translation vers l'extérieur + fade)
+        tl.to(
+          items,
           {
-            x: (i) => startPositions[i].x,
-            y: (i) => startPositions[i].y,
-            scale: 0,
             autoAlpha: 0,
+            x: (i) => (offsets[i]?.x || 0) * 5,
+            y: (i) => (offsets[i]?.y || 0) * 5,
+            duration: 0.9,
+            stagger: 0.05,
+            ease: 'power2.in',
           },
-          {
-            x: 0,
-            y: 0,
-            scale: 1,
-            autoAlpha: 1,
-            stagger: 0.1,
-            ease: 'power2.out',
-            duration: 0.8,
-          },
-          0.2
+          'pause'
         );
       }, this.containerRef.nativeElement);
     });
