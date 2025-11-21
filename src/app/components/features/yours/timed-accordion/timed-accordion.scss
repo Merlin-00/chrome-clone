@@ -1,4 +1,5 @@
 @use 'mixins' as *;
+
 :host {
   display: block;
   width: 100%;
@@ -28,30 +29,37 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
-    align-items: center;
+    align-items: start; // Changé de center à start pour éviter les sauts si contenu variable
   }
 }
 
 .visual-panels {
-  position: relative;
-  aspect-ratio: 4 / 3;
+  position: sticky;
+  top: 2rem; // Un peu de sticky si la liste est longue
+  aspect-ratio: 3 / 3;
   border-radius: 14px;
   overflow: hidden;
+  background: #f1f3f4; // Fallback color
+
   .panel {
     position: absolute;
     inset: 0;
     opacity: 0;
-    transform: scale(1.05) rotate(2deg);
-    transition: transform 0.7s var(--ease-standard), opacity 0.7s var(--ease-standard);
+    transform: scale(1.05);
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+
     &.is-active {
       opacity: 1;
-      transform: scale(1) rotate(0deg);
-      transition-delay: 0.1s;
+      transform: scale(1);
+      transition-delay: 0s;
+      z-index: 2;
     }
-    svg {
+
+    img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      height: auto;
+      object-fit: contain; // Ou cover selon la maquette, contain évite le crop
+      display: block;
     }
   }
 }
@@ -60,6 +68,10 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  /* Ensure the text column sits above the visual panels (sticky/absolute panels
+     can sometimes overlap the text and block pointer events on early items). */
+  position: relative;
+  z-index: 3;
 }
 
 .item {
@@ -69,20 +81,18 @@
   padding: 1.25rem;
   border-radius: 12px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.2s ease;
   text-align: left;
-  &.is-active {
-    background-color: #f0f2f5;
-  }
+  user-select: none;
 }
 
 .item-progress-bar-vertical {
   flex-shrink: 0;
-  width: 3px;
+  width: 4px; // Un peu plus visible
   height: auto;
   align-self: stretch;
   background-color: #e0e0e0;
-  border-radius: 3px;
+  border-radius: 4px;
   position: relative;
   overflow: hidden;
 }
@@ -95,22 +105,27 @@
   width: 100%;
   height: 0;
   background-color: var(--color-primary, #1a73e8);
+  border-radius: 4px;
 }
 
 .item-main-content {
   flex-grow: 1;
 }
+
 .item-title {
   font-size: 1.5rem;
-  font-weight: 700;
+  font-weight: 500; // Google style est souvent 400/500 pour les titres accordion
   margin: 0;
-  color: var(--color-text);
+  color: #202124;
+  line-height: 1.3;
 }
 
+// Animation logique
 .item.is-active .item-progress-fill {
   animation: fill-progress-vertical 7s linear forwards;
   animation-play-state: running;
 }
+
 :host(.is-paused) .item.is-active .item-progress-fill {
   animation-play-state: paused;
 }
@@ -118,28 +133,65 @@
 .item-content {
   display: grid;
   grid-template-rows: 0fr;
-  transition: grid-template-rows 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 
   .content-inner {
     overflow: hidden;
     p {
       margin: 0;
-      color: var(--color-muted);
+      padding-top: 0.75rem;
+      color: #5f6368;
       line-height: 1.6;
     }
   }
 }
+
 .item.is-active .item-content {
   grid-template-rows: 1fr;
-  margin-top: 1rem;
+}
+
+// Styles des liens et flèches
+.item-cta,
+.final-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  font-weight: 500;
+  color: var(--color-primary, #1a73e8);
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.8;
+    .icon-arrow {
+      transform: translate(2px, -2px);
+    }
+  }
 }
 
 .item-cta {
-  display: inline-block;
   margin-top: 1rem;
-  font-weight: 500;
-  color: var(--color-primary);
 }
+
+.icon-arrow {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.2s ease;
+}
+
+.final-cta-wrapper {
+  margin-top: 2rem;
+  text-align: left;
+  padding-left: 1.25rem; // Alignement avec le texte
+}
+
+.final-cta {
+  padding: 0.75rem 1.5rem;
+  background-color: #e8f0fe;
+  border-radius: 99px;
+}
+
+// MOBILE
 .accordion-mobile {
   display: flex;
   flex-direction: column;
@@ -154,32 +206,26 @@
   flex-direction: column;
   gap: 1.5rem;
 }
+
 .mobile-visual {
   width: 100%;
-  aspect-ratio: 4 / 3;
-  border-radius: 14px;
+  aspect-ratio: 3 / 2;
+  border-radius: 28px;
   overflow: hidden;
-  svg {
+  background: #f1f3f4;
+
+  img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
   }
 }
+
 .mobile-text {
   text-align: left;
   p {
     margin-top: 0.5rem;
+    color: #5f6368;
+    line-height: 1.6;
   }
-}
-
-.final-cta {
-  display: inline-block;
-  margin-top: 2rem;
-  padding: 1rem 1.5rem;
-  background-color: #eef2ff;
-  border-radius: var(--button-border-radius, 12px);
-  color: var(--color-primary, #1a73e8);
-  text-decoration: none;
-  font-weight: 500;
-  text-align: center;
 }
