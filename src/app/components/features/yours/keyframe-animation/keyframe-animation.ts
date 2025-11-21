@@ -78,8 +78,8 @@ export class KeyframeAnimation implements AfterViewInit, OnDestroy {
           items,
           {
             autoAlpha: 0,
-            x: (i) => (offsets[i]?.x || 0) * 5,
-            y: (i) => (offsets[i]?.y || 0) * 5,
+            x: (i) => (offsets[i]?.x || 0) * 4,
+            y: (i) => (offsets[i]?.y || 0) * 4,
             duration: 0.9,
             stagger: 0.05,
             ease: 'power2.in',
