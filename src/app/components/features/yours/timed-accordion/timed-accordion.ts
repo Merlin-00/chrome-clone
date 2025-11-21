@@ -73,6 +73,7 @@ export class TimedAccordion implements OnDestroy {
   private timer: any;
   private intersectionObserver?: IntersectionObserver;
   private resizeObserver?: ResizeObserver;
+  private intervalMs = 5000;
 
   constructor() {
     if (typeof window !== 'undefined') {
@@ -119,7 +120,15 @@ export class TimedAccordion implements OnDestroy {
 
   private startTimer(): void {
     this.stopTimer();
-    this.timer = setInterval(() => this.next(), 7000);
+    try {
+      (this.elementRef.nativeElement as HTMLElement).style.setProperty(
+        '--progress-duration',
+        `${this.intervalMs / 1000}s`
+      );
+    } catch (e) {}
+
+    this.timer = setInterval(() => this.next(), this.intervalMs);
+    this.restartProgressAnimation();
   }
 
   private stopTimer(): void {
@@ -128,6 +137,7 @@ export class TimedAccordion implements OnDestroy {
 
   private next(): void {
     this.activeIndex.update((current) => (current + 1) % this.items().length);
+    Promise.resolve().then(() => this.restartProgressAnimation());
   }
 
   selectItem(index: number): void {
@@ -139,6 +149,19 @@ export class TimedAccordion implements OnDestroy {
       this.activeIndex.set(index);
       this.isPaused.set(false);
       this.startTimer();
+    }
+  }
+
+  private restartProgressAnimation(): void {
+    try {
+      const root = this.elementRef.nativeElement as HTMLElement;
+      const el = root.querySelector('.item.is-active .item-progress-fill') as HTMLElement | null;
+      if (!el) return;
+      el.style.animation = 'none';
+      el.offsetWidth;
+      el.style.animation = '';
+    } catch (e) {
+      // ignore DOM errors
     }
   }
 }
