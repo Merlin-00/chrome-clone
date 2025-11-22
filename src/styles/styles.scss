@@ -126,31 +126,24 @@ p {
 /* -------------------------------------------------------------------------- */
 /* 🧩 Boutons génériques
 --------------------------------------------------------------------------- */
-button,
-.btn {
-  display: inline-flex;
+.btn-primary {
+  display: flex;
   align-items: center;
   justify-content: center;
-  border: none;
-  border-radius: var(--radius);
-  font-weight: var(--font-weight-medium);
-  cursor: pointer;
-  transition: background-color var(--transition-fast), transform var(--transition-fast);
-}
-
-.btn-primary {
-  background-color: var(--color-primary);
-  color: var(--color-on-primary);
-  padding: 12px 26px;
-  border-radius: 8px;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #1a73e8;
+  font-size: 16px;
   font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-  box-shadow: 0 8px 20px rgba(26, 115, 232, 0.3);
+  width: 100%;
+  height: 48px;
+  border: none;
+  color: white;
+  border-radius: 2rem;
 }
 
 .btn-primary:hover {
-  background-color: var(--color-accent);
+  background-color: var(--mat-sys-primary, #095cc9);
 }
 
 a {
@@ -160,13 +153,13 @@ a {
   margin: 0.5rem 0;
   overflow: hidden;
   text-decoration: none;
-  color: #5b5b5b;
+  color: #636363;
   font-size: 14px;
 }
 
 .external-icon {
   font-size: 16px;
-  margin-top: 10px;
+  margin-top: 6px;
   transition: transform 0.2s ease-out;
 }
 a:hover .external-icon {

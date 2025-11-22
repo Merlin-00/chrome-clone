@@ -8,16 +8,18 @@ import {
   ViewChild,
   inject,
   afterNextRender,
+  signal,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
-import { Skeleton } from '../skeleton/skeleton';
+import { MatCheckbox } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [CommonModule, Skeleton],
+  imports: [CommonModule, MatIconModule, MatCheckbox, NgOptimizedImage],
   templateUrl: './hero.html',
   styleUrls: ['./hero.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -34,6 +36,7 @@ export class Hero implements AfterViewInit, OnDestroy {
     if (typeof window !== 'undefined') {
       gsap.registerPlugin(ScrollTrigger);
     }
+    this.setupViewportListener();
     afterNextRender(() => {
       this.ngZone.runOutsideAngular(() => {
         this.ctx = gsap.context(() => {
@@ -43,12 +46,59 @@ export class Hero implements AfterViewInit, OnDestroy {
     });
   }
 
+  // Signal to track whether viewport is large enough to show the QR widget
+  isLarge = signal(false);
+
+  // Signal to track whether QR block is expanded (shows QR + text) or collapsed (tablet icon)
+  qrExpanded = signal(true);
+
+  private mql?: MediaQueryList;
+  private mqlListener?: (e?: MediaQueryListEvent) => void;
+
+  private setupViewportListener(): void {
+    if (typeof window === 'undefined') return;
+    this.mql = window.matchMedia('(min-width: 1025px)');
+    const update = () => this.isLarge.set(this.mql?.matches ?? false);
+    this.mqlListener = () => update();
+    update();
+    // listen for changes
+    if (this.mql.addEventListener && this.mqlListener) {
+      this.mql.addEventListener('change', this.mqlListener);
+    } else if ((this.mql as any).addListener && this.mqlListener) {
+      // fallback for older browsers
+      (this.mql as any).addListener(this.mqlListener);
+    }
+  }
+
+  toggleQr(): void {
+    this.qrExpanded.update((v) => !v);
+    // animate the newly rendered block after the next render
+    afterNextRender(() => {
+      const selector = this.qrExpanded() ? '.footer-qr-code' : '.item2';
+      const el = this.elementRef.nativeElement.querySelector(selector) as HTMLElement | null;
+      if (el) {
+        gsap.fromTo(
+          el,
+          { x: 20, opacity: 0 },
+          { x: 0, opacity: 1, duration: 0.35, ease: 'power2.out' }
+        );
+      }
+    });
+  }
+
   ngAfterViewInit(): void {
     this.waitForImages();
   }
 
   ngOnDestroy(): void {
     if (this.ctx) this.ctx.revert();
+    if (this.mql && this.mqlListener) {
+      if (this.mql.removeEventListener) {
+        this.mql.removeEventListener('change', this.mqlListener);
+      } else if ((this.mql as any).removeListener) {
+        (this.mql as any).removeListener(this.mqlListener);
+      }
+    }
   }
 
   private waitForImages(): void {
