@@ -1,58 +1,16 @@
 <div class="accordion-container">
+  <!-- VERSION DESKTOP -->
   <div class="accordion-desktop">
+    <!-- Panneau Visuel -->
     <div class="visual-panels">
       @for (item of items(); track item.id) {
       <div class="panel" [class.is-active]="item.id === activeId()">
-        @if (item.id === 'customize') {
-        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
-          <rect width="400" height="300" rx="14" fill="#fefce8" />
-          <text
-            x="50%"
-            y="50%"
-            dominant-baseline="middle"
-            text-anchor="middle"
-            font-family="Roboto, sans-serif"
-            font-size="24"
-            fill="#ca8a04"
-          >
-            Customize UI
-          </text>
-        </svg>
-        } @else if (item.id === 'devices') {
-        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
-          <rect width="400" height="300" rx="14" fill="#f0f9ff" />
-          <text
-            x="50%"
-            y="50%"
-            dominant-baseline="middle"
-            text-anchor="middle"
-            font-family="Roboto, sans-serif"
-            font-size="24"
-            fill="#0284c7"
-          >
-            Devices UI
-          </text>
-        </svg>
-        } @else if (item.id === 'autofill') {
-        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
-          <rect width="400" height="300" rx="14" fill="#f0fdf4" />
-          <text
-            x="50%"
-            y="50%"
-            dominant-baseline="middle"
-            text-anchor="middle"
-            font-family="Roboto, sans-serif"
-            font-size="24"
-            fill="#16a34a"
-          >
-            Autofill UI
-          </text>
-        </svg>
-        }
+        <img [src]="item.image" [alt]="item.title" loading="lazy" />
       </div>
       }
     </div>
 
+    <!-- Liste Accordéon -->
     <div class="text-items">
       @for (item of items(); track item.id; let i = $index) {
       <div
@@ -60,9 +18,14 @@
         [class.is-active]="i === activeIndex()"
         (click)="selectItem(i)"
         role="button"
+        [attr.aria-expanded]="i === activeIndex()"
         tabindex="0"
+        (keydown.enter)="selectItem(i)"
+        (keydown.space)="selectItem(i)"
       >
-        <div class="item-progress-bar-vertical"><div class="item-progress-fill"></div></div>
+        <div class="item-progress-bar-vertical">
+          <div class="item-progress-fill"></div>
+        </div>
         <div class="item-main-content">
           <div class="item-header">
             <h3 class="item-title">{{ item.title }}</h3>
@@ -71,74 +34,108 @@
             <div class="content-inner">
               <p>{{ item.description }}</p>
               @if (item.cta) {
-              <a href="#" class="item-cta" (click)="$event.stopPropagation()">{{ item.cta }}</a> }
+              <a href="#" class="item-cta" (click)="$event.stopPropagation()">
+                {{ item.cta }}
+                <!-- SVG Arrow -->
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="icon-arrow"
+                >
+                  <line x1="7" y1="17" x2="17" y2="7"></line>
+                  <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+              </a>
+              }
             </div>
           </div>
         </div>
       </div>
       }
-      <a href="#" class="final-cta"> Pour commencer, veuillez vous connecter </a>
+
+      <!-- Final CTA -->
+      <div class="final-cta-wrapper">
+        <a href="#" class="final-cta">
+          Pour commencer, veuillez vous connecter
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="icon-arrow"
+          >
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+      </div>
     </div>
   </div>
 
+  <!-- VERSION MOBILE -->
   <div class="accordion-mobile">
     @for (item of items(); track item.id) {
     <div class="mobile-item">
       <div class="mobile-visual">
-        @if (item.id === 'customize') {
-        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
-          <rect width="400" height="300" rx="14" fill="#fefce8" />
-          <text
-            x="50%"
-            y="50%"
-            dominant-baseline="middle"
-            text-anchor="middle"
-            font-family="Roboto, sans-serif"
-            font-size="24"
-            fill="#ca8a04"
-          >
-            Customize UI
-          </text>
-        </svg>
-        } @else if (item.id === 'devices') {
-        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
-          <rect width="400" height="300" rx="14" fill="#f0f9ff" />
-          <text
-            x="50%"
-            y="50%"
-            dominant-baseline="middle"
-            text-anchor="middle"
-            font-family="Roboto, sans-serif"
-            font-size="24"
-            fill="#0284c7"
-          >
-            Devices UI
-          </text>
-        </svg>
-        } @else if (item.id === 'autofill') {
-        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
-          <rect width="400" height="300" rx="14" fill="#f0fdf4" />
-          <text
-            x="50%"
-            y="50%"
-            dominant-baseline="middle"
-            text-anchor="middle"
-            font-family="Roboto, sans-serif"
-            font-size="24"
-            fill="#16a34a"
-          >
-            Autofill UI
-          </text>
-        </svg>
-        }
+        <img [src]="item.imageMobile" [alt]="item.title" loading="lazy" />
       </div>
       <div class="mobile-text">
         <h3 class="item-title">{{ item.title }}</h3>
         <p>{{ item.description }}</p>
-        @if (item.cta) { <a href="#" class="item-cta">{{ item.cta }}</a> }
+        @if (item.cta) {
+        <a href="#" class="item-cta">
+          {{ item.cta }}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="icon-arrow"
+          >
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+        }
       </div>
     </div>
     }
-    <a href="#" class="final-cta"> Pour commencer, veuillez vous connecter </a>
+    <div class="final-cta-wrapper">
+      <a href="#" class="final-cta">
+        Pour commencer, veuillez vous connecter
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="icon-arrow"
+        >
+          <line x1="7" y1="17" x2="17" y2="7"></line>
+          <polyline points="7 7 17 7 17 17"></polyline>
+        </svg>
+      </a>
+    </div>
   </div>
 </div>

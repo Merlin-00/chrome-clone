@@ -13,12 +13,11 @@ import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import { TimedAccordion } from './timed-accordion/timed-accordion';
 import { KeyframeAnimation } from './keyframe-animation/keyframe-animation';
-import { Skeleton } from '../../skeleton/skeleton';
 
 @Component({
   selector: 'app-yours',
   standalone: true,
-  imports: [CommonModule, TimedAccordion, KeyframeAnimation, Skeleton],
+  imports: [CommonModule, TimedAccordion, KeyframeAnimation],
   templateUrl: './yours.html',
   styleUrls: ['./yours.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -46,19 +45,20 @@ export class Yours implements AfterViewInit, OnDestroy {
         this.ctx = gsap.context(() => {
           const scroller = this.elementRef.nativeElement.closest('.main-scroll-container');
           if (!scroller) {
-            console.error('Scroller .main-scroll-container non trouvé.');
-            return;
+            console.warn('GSAP Scroller .main-scroll-container introuvable, fallback window.');
           }
 
-          this.initPillAnimation(scroller);
+          const actualScroller = scroller || window;
+
+          this.initPillAnimation(actualScroller);
 
           gsap.matchMedia().add('(min-width: 769px)', () => {
-            this.initTakeOverAnimation(scroller);
+            this.initTakeOverAnimation(actualScroller);
           });
 
           ScrollTrigger.refresh();
         }, this.sectionRef.nativeElement);
-      }, 50);
+      }, 100);
     });
   }
 
@@ -66,7 +66,7 @@ export class Yours implements AfterViewInit, OnDestroy {
     this.ctx?.revert();
   }
 
-  private initPillAnimation(scroller: Element): void {
+  private initPillAnimation(scroller: Element | Window): void {
     const pill = this.pillRef.nativeElement;
     ScrollTrigger.create({
       trigger: pill,
@@ -77,9 +77,10 @@ export class Yours implements AfterViewInit, OnDestroy {
     });
   }
 
-  private initTakeOverAnimation(scroller: Element): void {
+  private initTakeOverAnimation(scroller: Element | Window): void {
     const hostElement = this.sectionRef.nativeElement;
     const stickyContainer = this.stickyContainerRef.nativeElement;
+
     const target = hostElement;
 
     const tl = gsap.timeline({
@@ -97,7 +98,7 @@ export class Yours implements AfterViewInit, OnDestroy {
       target,
       {
         '--title-translate-y': '20vh',
-        '--title-opacity': 0,
+        '--title-scale': 0.4,
         '--title-z-index': 1,
         duration: 0.2,
         ease: 'power2.in',
@@ -108,8 +109,9 @@ export class Yours implements AfterViewInit, OnDestroy {
       {
         '--viewport-width': '90vw',
         '--viewport-max-width': '1200px',
-        '--viewport-radius': '24px',
+        '--viewport-radius': '4px',
         '--bg-image-scale': 1,
+        '--viewport-scale': 1.35,
         duration: 0.4,
         ease: 'power2.inOut',
       },
