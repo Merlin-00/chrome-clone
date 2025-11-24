@@ -4,7 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 // On définit des types pour nos données pour un code plus propre
 type SocialLink = { name: string; icon: string; url: string };
-type FooterColumn = { title: string; links: { text: string; url: string }[] };
+type FooterColumn = { title: string; links: { text: string; url: string; arrow?: boolean }[] };
 
 @Component({
   selector: 'app-footer',
@@ -17,18 +17,18 @@ type FooterColumn = { title: string; links: { text: string; url: string }[] };
 export class Footer {
   // --- Données du Footer ---
   readonly socialLinks = signal<SocialLink[]>([
-    { name: 'YouTube', icon: 'youtube', url: '#' },
-    { name: 'X', icon: 'twitter', url: '#' },
-    { name: 'Facebook', icon: 'facebook', url: '#' },
-    { name: 'LinkedIn', icon: 'linkedin', url: '#' },
-    { name: 'TikTok', icon: 'tiktok', url: '#' },
+    { name: 'YouTube', icon: 'assets/icons/youtube.svg', url: '#' },
+    { name: 'X', icon: 'assets/icons/x.svg', url: '#' },
+    { name: 'Facebook', icon: 'assets/icons/facebook.svg', url: '#' },
+    { name: 'LinkedIn', icon: 'assets/icons/linkedin.svg', url: '#' },
+    { name: 'TikTok', icon: 'assets/icons/tiktok.svg', url: '#' },
   ]);
 
   readonly columns = signal<FooterColumn[]>([
     {
       title: 'Produits Chrome',
       links: [
-        { text: 'Autres plates-formes', url: '#' },
+        { text: 'Autres plates-formes', url: '#', arrow: false },
         { text: 'Chromebooks', url: '#' },
         { text: 'Chromecast', url: 'https://www.google.com/intl/fr_fr/chrome/devices/chromecast/' },
         { text: 'Chrome Web Store', url: '#' },
@@ -59,9 +59,9 @@ export class Footer {
         { text: 'ChromeOS', url: '#' },
         { text: 'Chrome Web Store', url: '#' },
         { text: 'Chrome Experiments', url: '#' },
-        { text: 'Version bêta de Chrome', url: '#' },
-        { text: 'Chrome pour les développeurs', url: '#' },
-        { text: 'Chrome Canary', url: '#' },
+        { text: 'Version bêta de Chrome', url: '#', arrow: false },
+        { text: 'Chrome pour les développeurs', url: '#', arrow: false },
+        { text: 'Chrome Canary', url: '#', arrow: false },
       ],
     },
     {
@@ -69,7 +69,16 @@ export class Footer {
       links: [
         { text: 'Aide Chrome', url: '#' },
         { text: 'Mettre à jour Chrome', url: '#' },
+        { text: 'Astuces Chrome', url: '#', arrow: false },
+        { text: 'Blog Google Chrome', url: '#' },
       ],
     },
   ]);
+
+  // Which column is expanded on medium / small screens.
+  expandedColumn = signal<number | null>(0);
+
+  toggleColumn(index: number) {
+    this.expandedColumn.set(this.expandedColumn() === index ? null : index);
+  }
 }

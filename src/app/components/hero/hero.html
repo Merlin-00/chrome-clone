@@ -16,11 +16,11 @@
     <div class="hero__links">
       <a class="hero__update-link" href="#">Je souhaite mettre à jour
         Chrome</a>
-      @if (isLarge()) {
+      @if (width() >= medium) {
       <span class="hero__note">Pour Windows 11/10 64-bit</span>
       }
     </div>
-    @if (isLarge()) {
+    @if (width() >= medium) {
     <div class="h-s">
       <div style="display: flex; align-items: center;">
         <mat-checkbox></mat-checkbox>
@@ -66,8 +66,8 @@
 </section>
 
 <!-- QR widget: show only on large screens -->
-@if (isLarge()) {
-@if (qrExpanded()) {
+@if (width() >= medium) {
+@if (state.qrExpanded()) {
 <div class="footer-qr-code" (click)="toggleQr()">
   <div class="item1">
     <img [ngSrc]="'assets/chrome_qr_code.png'" alt="QR Code Télécharger Chrome" class="qr-image" width="80" height="80"

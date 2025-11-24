@@ -1,45 +1,57 @@
-<footer class="app-footer">
-  <div class="container">
-    <!-- Partie supérieure avec les liens sociaux et les colonnes -->
-    <div class="footer-main">
-      <div class="social-section">
-        <span>Suivez-nous</span>
-        <div class="social-links">
-          <a
-            *ngFor="let social of socialLinks()"
-            [href]="social.url"
-            [attr.aria-label]="social.name"
-          >
+<footer class="footer">
+  <div class="footer-social-qr-container">
+    <div class="footer-social-qr-wrapper">
+      <div class="footer-social">
+        <span class="social-title">Suivez-nous</span>
+        <div>
+          @for (social of socialLinks(); track $index) {
+          <a [href]="social.url" [attr.aria-label]="social.name">
             <!-- On utilisera des icônes SVG ou une lib d'icônes ici -->
             <!-- Pour l'instant, un placeholder texte -->
-            {{ social.name.charAt(0) }}
+            <img style="width: 25px; height: auto;" [src]="social.icon" [alt]="social.name">
           </a>
+          }
         </div>
       </div>
-      <nav class="links-grid">
-        <div *ngFor="let column of columns()" class="links-column">
-          <h4 class="column-title">{{ column.title }}</h4>
-          <ul>
-            <li *ngFor="let link of column.links">
-              <a [href]="link.url">{{ link.text }}</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
     </div>
+  </div>
 
-    <!-- Partie inférieure avec les liens légaux et le logo -->
-    <div class="footer-bottom">
-      <div class="bottom-left">
-        <span class="google-logo">Google</span>
+  <nav class="links-grid">
+    @for (column of columns(); track $index) {
+    <div class="links-column" [class.open]="expandedColumn() === $index">
+      <h4 class="column-title" role="button" tabindex="0" (click)="toggleColumn($index)">
+        {{ column.title }}
+      </h4>
+      <ul>
+        @for (link of column.links; track $index) {
+        <li>
+          <a [href]="link.url">
+            {{ link.text }} @if(link.arrow!==false){<mat-icon class="external-icon">arrow_outward</mat-icon>}
+          </a>
+        </li>
+        }
+      </ul>
+    </div>
+    }
+  </nav>
+  <div class="footer-bottom">
+    <div class="footer-bottom-left">
+      <a href="#" class="google-logo">Google</a>
+      <div class="footer-bottom-left">
         <a href="#">Confidentialité et conditions d'utilisation</a>
         <a href="#">À propos de Google</a>
         <a href="#">Produits Google</a>
       </div>
-      <div class="bottom-right">
-        <a href="#">Aide</a>
-        <span>Français - France</span>
-      </div>
+    </div>
+
+    <div class="footer-bottom-right">
+      <a href="#" class="help-link">
+        <mat-icon class="help-icon">help</mat-icon> Aide
+      </a>
+      <select class="language-select">
+        <option>Français - France</option>
+        <option>English - US</option>
+      </select>
     </div>
   </div>
 </footer>
