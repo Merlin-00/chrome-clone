@@ -3,16 +3,17 @@
 :host {
   display: block;
   background-color: #f8f9fa;
-  padding: 8rem 0;
   width: 100%;
   overflow-x: hidden;
 }
 
 .container {
+  padding: 2rem;
   max-width: 900px;
   margin: 0 auto;
-  padding: 0 var(--container-padding, 20px);
   width: 100%;
+  padding-top: 6rem;
+  padding-bottom: 6rem;
 }
 
 .faq-title {
@@ -44,6 +45,7 @@
 }
 
 .item-question {
+  width: 100%;
   font-size: 1.5rem;
   font-weight: 500;
   color: var(--primary-color, #1a73e8);
@@ -92,5 +94,14 @@
   }
   .item-question {
     font-size: 1.2rem;
+  }
+  .container {
+    padding-top: 0;
+  }
+}
+@media (max-width: 780px) {
+  .container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
   }
 }
