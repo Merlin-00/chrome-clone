@@ -3,14 +3,11 @@
     <h2 class="faq-title">Questions fréquentes</h2>
 
     <div class="accordion-wrapper">
-      <div
-        *ngFor="let item of faqItems(); let i = index"
-        class="accordion-item"
-        [class.is-open]="openIndex() === i"
-      >
-        <button class="item-header" (click)="toggleItem(i)">
+      @for (item of faqItems(); track $index) {
+      <div class="accordion-item" [class.is-open]="openIndex() === $index">
+        <button class="item-header" (click)="toggleItem($index)">
           <span class="item-question">{{ item.question }}</span>
-          <mat-icon class="item-icon">{{ openIndex() === i ? 'close' : 'add' }}</mat-icon>
+          <mat-icon class="item-icon">{{ openIndex() === $index ? 'close' : 'add' }}</mat-icon>
         </button>
         <div class="item-content">
           <div class="content-inner">
@@ -18,6 +15,7 @@
           </div>
         </div>
       </div>
+      }
     </div>
   </div>
 </section>

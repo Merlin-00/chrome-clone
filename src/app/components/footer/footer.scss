@@ -1,60 +1,35 @@
-:host {
-  display: block;
+footer.footer {
   background-color: #f1f3f4;
-  color: #5f6368;
-  padding: 4rem 0 2rem 0;
-  width: 100%;
+  color: #636363;
+  padding: 0 0 2rem 0;
+  position: relative;
 }
 
-.container {
-  max-width: var(--container-max-width, 1120px);
-  margin: 0 auto;
-  padding: 0 var(--container-padding, 20px);
-  width: 100%;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-  &:hover {
-    color: #202124;
-  }
-}
-
-.footer-main {
-  padding-bottom: 2rem;
+.footer-social-qr-container {
   border-bottom: 1px solid #dadce0;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+}
+.footer-social-qr-wrapper {
+  padding: 1.5rem 2rem;
 }
 
-.social-section {
+.footer-social {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 1rem;
-  font-weight: 500;
-  color: #202124;
-}
-
-.social-links {
-  display: flex;
-  gap: 0.5rem;
-  a {
+  gap: 1.5rem;
+  div {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background-color: #e8eaed;
-    &:hover {
-      background-color: #dadce0;
-    }
+    gap: 1.5rem;
   }
 }
-
+.social-title {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #3c3d40;
+  margin-right: 0.5rem;
+}
 .links-grid {
+  padding: 1.5rem 2rem;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
@@ -71,9 +46,10 @@ a {
 .links-column {
   .column-title {
     font-size: 1rem;
-    font-weight: 700;
-    color: #202124;
+    font-weight: 600;
+    color: #3c3d40;
     margin: 0 0 1rem 0;
+    cursor: pointer;
   }
   ul {
     list-style: none;
@@ -84,31 +60,105 @@ a {
     gap: 0.75rem;
   }
 }
-
 .footer-bottom {
-  padding-top: 2rem;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1.5rem;
-
-  @media (min-width: 901px) {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 1rem 2rem;
+  border-top: 1px solid #dadce0;
 }
 
-.bottom-left,
-.bottom-right {
+.footer-bottom-left {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-bottom: 0.5rem;
+  margin-right: 3rem;
+}
+
+.google-logo {
+  padding-bottom: 0.5rem;
+  font-weight: 400;
+  font-size: 1.8rem;
+}
+
+.footer-bottom-right {
+  margin-bottom: 0.5rem;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 1.5rem;
+  margin-right: 3rem;
 }
 
-.google-logo {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #5f6368;
+.language-select {
+  width: 250px;
+  border: none;
+  padding: 0.1rem;
+  font-size: 1rem;
+  border-bottom: 1px solid #dadce0;
+  background-color: #f1f3f4;
+}
+.help-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1rem;
+}
+@media (max-width: 800px) {
+  .footer-top {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .footer-bottom-left {
+    gap: 1rem;
+  }
+}
+
+/* Adjust footer layout to match original site around IS_MEDIUM = 1022px */
+@media (max-width: 1022px) {
+  .links-grid {
+    display: block;
+    padding: 0;
+  }
+
+  .links-column {
+    padding: 1rem 2rem;
+    border-top: 1px solid #e3e3e3;
+  }
+
+  /* Hide link lists by default on medium/smaller screens */
+  .links-column ul {
+    display: none;
+    margin-top: 0.75rem;
+  }
+
+  /* Show lists when column has .open */
+  .links-column.open ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  /* Make titles look like separators/headers */
+  .links-column .column-title {
+    padding: 0.75rem 0;
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #3c3d40;
+  }
+
+  /* Reduce spacing of footer bottom to fit medium screens */
+  .footer-bottom {
+    padding: 0.75rem 1.5rem;
+  }
+
+  .google-logo {
+    font-size: 1.6rem;
+  }
+
+  .language-select {
+    width: 200px;
+  }
 }
