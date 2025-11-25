@@ -122,7 +122,7 @@ export class Hero implements AfterViewInit, OnDestroy {
             mosaic.style.display = 'flex';
 
             gsap.set(initialVisibleCards, { y: (i) => (i % 2 === 0 ? -60 : 60) });
-            gsap.set(firstCard, { x: '20vw' });
+            gsap.set(firstCard, { x: '15vw' });
             gsap.set(secondCard, { y: '100vh' });
 
             const tl = gsap.timeline({
