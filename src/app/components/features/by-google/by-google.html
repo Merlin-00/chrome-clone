@@ -5,6 +5,7 @@
         Le navigateur
         <span class="pill-wrapper" #pill>
           <span class="pill">
+            <mat-icon class="pill-icon">construction</mat-icon>
             @for (char of pillText; track $index) {
             <span class="pill-char" [style.--animation-delay.ms]="$index * 20">{{ char }}</span>
             }
@@ -16,50 +17,59 @@
     </header>
 
     <!-- Carte IA (statique) -->
-    <div class="ai-card">
+    <mat-card class="ai-card">
+      <div class="ai-eyebrow">IA Google</div>
       <div class="ai-text-content">
-        <span class="ai-eyebrow">IA Google</span>
-        <h3 class="ai-title">Accédez aux superpouvoirs de l'IA pendant votre navigation.</h3>
-        <p class="ai-description">
-          Google intègre l'IA à ses produits pour les rendre plus utiles. Nous utilisons l'IA pour
-          des fonctionnalités telles que la Recherche, Google Traduction et bien d'autres.
-        </p>
-        <a href="#" class="ai-cta">Découvrez l'IA Google</a>
+        <div>
+          <h3 class="ai-title">Accédez aux superpouvoirs de l'IA pendant votre navigation.</h3>
+        </div>
+        <div>
+          <p class="ai-description">
+            Google intègre l'IA à ses produits pour les rendre plus utiles. Nous utilisons l'IA pour des
+            fonctionnalités
+            telles que la Recherche, Google Traduction et bien d'autres. De plus, nous concevons nos innovations
+            technologiques de façon responsable.
+          </p>
+          <a href="#" class="ai-cta">Découvrez l'IA Google<mat-icon class="external-icon">arrow_outward</mat-icon></a>
+        </div>
       </div>
-      <div class="ai-visual">
-        <svg viewBox="0 0 200 100">
-          <circle cx="100" cy="50" r="20" fill="#4285F4" />
-          <text x="100" y="53" text-anchor="middle" font-size="20" fill="white" font-weight="bold">
-            G
-          </text>
-        </svg>
-      </div>
-    </div>
+
+
+      <img src="/assets/sections-images/for-google/image1.png" alt="google visual" class="ai-visual" />
+    </mat-card>
 
     <!-- Grille des cartes interactives -->
     <div class="cards-grid">
       @for (card of cards(); track card.id) {
-      <div
-        class="card-container"
-        [style.grid-area]="card.gridArea"
-        [class.is-flipped]="isFlipped(card.id)"
-        (click)="toggleCard(card.id)"
-      >
-        <div class="card-face card-front" [ngClass]="'variant--' + card.variant">
+      <div class="card-container" [style.grid-area]="card.gridArea" [class.is-flipped]="isFlipped(card.id)"
+        (click)="toggleCard(card.id)">
+        <mat-card class="card-face card-front" [class]="'variant--' + card.variant">
           <div class="front-content">
             <span class="front-eyebrow">{{ card.front.eyebrow }}</span>
             <h4 class="front-title">{{ card.front.title }}</h4>
           </div>
-          <button class="toggle-btn"><mat-icon>add</mat-icon></button>
-        </div>
+          <img class="img" src="{{ card.frontImage }}" alt="{{ card.id }} front" />
+          <mat-card-actions align="end">
+            <button mat-icon-button class="btn6" aria-label="open-card"><mat-icon>add</mat-icon></button>
+          </mat-card-actions>
+        </mat-card>
 
-        <div class="card-face card-back" [ngClass]="'variant--' + card.variant">
-          <p class="back-content">{{ card.back.content }}</p>
-          <a href="#" class="back-cta" (click)="$event.stopPropagation()">{{ card.back.cta }}</a>
-          <button class="toggle-btn" (click)="toggleCard(card.id); $event.stopPropagation()">
-            <mat-icon>close</mat-icon>
-          </button>
-        </div>
+        <mat-card class="card-face card-back" [class]="'variant--' + card.variant">
+          <div class="back-content-wrapper">
+            <img class="img" src="{{ card.backImage }}" alt="{{ card.id }} back" />
+            <p class="back-content">{{ card.back.content }}
+              @if (card.linkExist) {
+              <br />
+              <a href="#" class="back-cta" (click)="$event.stopPropagation()">{{ card.back.cta }}<mat-icon
+                  class="external-icon">arrow_outward</mat-icon></a>
+              }
+            </p>
+          </div>
+          <mat-card-actions align="end">
+            <button mat-icon-button class="btn5"
+              (click)="toggleCard(card.id); $event.stopPropagation()"><mat-icon>close</mat-icon></button>
+          </mat-card-actions>
+        </mat-card>
       </div>
       }
     </div>
