@@ -40,7 +40,9 @@
   </div>
   <div class="mosaic" #mosaic>
     <div class="mosaic__scaler">
+      @if (width() >= medium) {
       <div #hS></div>
+      }
       <div class="mosaic__track" #track>
         <article class="mosaic__card mosaic__card--left">
           <img class="img1" [ngSrc]="'/assets/sections-images/image1.png'" alt="image1" width="1000" height="600"
@@ -64,9 +66,10 @@
         </article>
       </div>
     </div>
+    <div #hS>
+    </div>
   </div>
 </section>
-
 <!-- QR widget: show only on large screens -->
 @if (width() >= medium) {
 @if (state.qrExpanded()) {
