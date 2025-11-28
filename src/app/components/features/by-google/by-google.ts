@@ -12,6 +12,8 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 
@@ -21,12 +23,15 @@ type GoogleCard = {
   variant: 'yellow' | 'white';
   front: { eyebrow: string; title: string };
   back: { content: string; cta: string };
+  frontImage?: string;
+  backImage?: string;
+  linkExist?: boolean;
 };
 
 @Component({
   selector: 'app-by-google',
   standalone: true,
-  imports: [CommonModule, MatIconModule],
+  imports: [CommonModule, MatIconModule, MatCardModule, MatButtonModule],
   templateUrl: './by-google.html',
   styleUrls: ['./by-google.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -54,6 +59,8 @@ export class ByGoogle implements AfterViewInit, OnDestroy {
           "Tout un univers de connaissances, à portée de main. Consultez la météo, résolvez des équations mathématiques et profitez de résultats de recherche instantanés, le tout depuis la barre d'adresse de votre navigateur.",
         cta: 'Découvrir la recherche intégrée',
       },
+      frontImage: '/assets/sections-images/for-google/image3.png',
+      backImage: '/assets/sections-images/for-google/image2.png',
     },
     {
       id: 'workspace',
@@ -65,6 +72,9 @@ export class ByGoogle implements AfterViewInit, OnDestroy {
           'Utilisez Gmail, Google Docs, Google Slides, Google Sheets, Google Traduction et Google Drive même sans connexion Internet.',
         cta: 'Découvrez comment travailler hors connexion',
       },
+      frontImage: '/assets/sections-images/for-google/image5.png',
+      backImage: '/assets/sections-images/for-google/image4.png',
+      linkExist: true,
     },
   ]);
 
