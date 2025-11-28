@@ -19,13 +19,8 @@
 
     <div class="updates-grid" role="list">
       @for (card of cards(); track card.id) {
-      <article
-        role="listitem"
-        class="update-card"
-        [attr.data-id]="card.id"
-        [style.background]="card.bg"
-        [attr.aria-labelledby]="'card-' + card.id"
-      >
+      <article role="listitem" class="update-card" [attr.data-id]="card.id" [style.background]="card.bg"
+        [attr.aria-labelledby]="'card-' + card.id">
         <div class="card-inner">
           <h3 id="{{ 'card-' + card.id }}" class="card-title">{{ card.title }}</h3>
           <p class="card-body">{{ card.body }}</p>

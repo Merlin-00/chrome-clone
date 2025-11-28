@@ -189,7 +189,10 @@ export class Hero implements AfterViewInit, OnDestroy {
         this.hideHeaderST = ScrollTrigger.create({
           scroller: scroller,
           trigger: this.hSTextRef.nativeElement,
-          start: 'top 65%',
+          start:
+            (typeof this.width === 'function' ? this.width() : this.width) >= this.medium
+              ? 'top 65%'
+              : 'top 55%',
           end: 'bottom top',
           onEnter: () => this.state.hideHeader.set(true),
           onLeaveBack: () => this.state.hideHeader.set(false),

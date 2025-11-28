@@ -282,8 +282,6 @@
     transform: translateY(6px);
     border-radius: 10px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-
-    filter: brightness(0.95) blur(1px);
     transition: transform 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease;
   }
 
@@ -299,18 +297,11 @@
     transform: translateY(12px);
     border-radius: 10px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    filter: brightness(0.95) blur(1px);
-
     transition: transform 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease;
   }
 
   .mosaic__track:hover .mosaic__card:nth-child(4) {
     transform: translateY(-5px) scale(1.02);
-  }
-
-  .mosaic__track:hover .mosaic__card:nth-child(3),
-  .mosaic__track:hover .mosaic__card:nth-child(5) {
-    filter: brightness(1) blur(0);
   }
 
   .skeleton {
