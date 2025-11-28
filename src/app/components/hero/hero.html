@@ -59,8 +59,8 @@
             decoding="async" loading="lazy">
         </article>
         <article class="mosaic__card mosaic__card--right">
-          <img class="img1" [ngSrc]="'/assets/sections-images/image5.png'" alt="image5" width="1000" height="600"
-            decoding="async" loading="lazy">
+          <img class="img1" [ngSrc]="'/assets/sections-images/image' + (width() >= medium ? 5 : 3) + '.png'"
+            alt="image5" width="1000" height="600" decoding="async" loading="lazy">
         </article>
       </div>
     </div>

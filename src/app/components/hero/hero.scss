@@ -1,7 +1,8 @@
 @use 'mixins' as *;
 
 :root {
-  --mosaic-card-height: clamp(180px, 28vmin, 420px);
+  /* Height used by all mosaic cards — ensures consistent visual height across images */
+  --mosaic-card-height: clamp(180px, 28vmin, 510px);
 }
 
 :host {
@@ -174,12 +175,6 @@
   font-size: 1rem;
 }
 
-@media (max-width: 1024px) {
-  .footer-qr-widget {
-    display: none;
-  }
-}
-
 .mosaic__scaler {
   transform: scale(0.7);
 }
@@ -193,7 +188,8 @@
 
 .mosaic__card {
   flex: 0 0 auto;
-  height: 510px;
+  /* Use the variable so all cards have same height and can scale responsively */
+  height: var(--mosaic-card-height);
   min-height: 320px;
   border-radius: 16px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
@@ -231,16 +227,10 @@
   z-index: 1;
 }
 
-@include respond-to('tablet') {
-  :root {
-    --mosaic-card-height: 300px;
+@media (max-width: 1024px) {
+  .footer-qr-widget {
+    display: none;
   }
-  .mosaic__scaler {
-    transform: scale(0.8);
-  }
-}
-
-@include respond-to('mobile') {
   .mosaic__scaler {
     transform: none !important;
     transform-origin: center center;
@@ -271,32 +261,26 @@
     display: inline-flex !important;
     align-items: flex-start;
     justify-content: center;
-    width: min(72vw, 220px);
-    aspect-ratio: 11 / 20;
-    height: auto;
+    width: min(80vw, 180px);
+    aspect-ratio: 7 / 12;
     padding: 0;
     margin: 0 (6vw);
-    z-index: 4;
     border-radius: 12px;
-
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
 
-  .mosaic__card:nth-child(3) {
+  .mosaic__card:nth-child(1) {
     display: inline-flex !important;
-    width: min(46vw, 140px);
+    width: min(40vw, 150px);
     aspect-ratio: 7 / 12;
     height: auto;
-    margin-left: -28px;
-    margin-right: -12px;
+    margin-left: -16px;
+    margin-right: 200px;
     align-items: flex-start;
     justify-content: center;
-    z-index: 3;
     transform: translateY(6px);
     border-radius: 10px;
-    margin-top: 5vh;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 
     filter: brightness(0.95) blur(1px);
@@ -305,17 +289,15 @@
 
   .mosaic__card:nth-child(5) {
     display: inline-flex !important;
-    width: min(46vw, 140px);
+    width: min(40vw, 150px);
     aspect-ratio: 7 / 12;
     height: auto;
-    margin-left: -12px;
-    margin-right: -28px;
+    margin-left: 200px;
+    margin-right: -16px;
     align-items: flex-start;
     justify-content: center;
-    z-index: 2;
     transform: translateY(12px);
     border-radius: 10px;
-    margin-top: 5vh;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     filter: brightness(0.95) blur(1px);
 
@@ -349,5 +331,17 @@
 
   .mosaic__card * {
     position: relative !important;
+  }
+
+  /* Ensure images fill card and keep aspect ratio */
+  .mosaic__card img,
+  .mosaic__card picture,
+  .mosaic__card svg {
+    /* On desktop make images fill the card height and keep aspect ratio;
+       on mobile these will be overridden to width: 100% via the existing rules */
+    height: 100%;
+    width: auto;
+    object-fit: cover;
+    border-radius: inherit;
   }
 }
