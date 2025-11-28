@@ -31,6 +31,8 @@ export class Hero implements AfterViewInit, OnDestroy {
   @ViewChild('container', { static: true }) containerRef!: ElementRef<HTMLElement>;
   @ViewChild('mosaic', { static: true }) mosaicRef!: ElementRef<HTMLElement>;
   @ViewChild('track', { static: true }) trackRef!: ElementRef<HTMLElement>;
+  @ViewChild('hS', { static: true }) hSTextRef!: ElementRef<HTMLElement>;
+  @ViewChild('headline', { static: true }) headlineRef!: ElementRef<HTMLElement>;
 
   private windows = inject(WindowsObserver);
   width = this.windows.width;
@@ -42,6 +44,10 @@ export class Hero implements AfterViewInit, OnDestroy {
 
   private ctx?: gsap.Context;
   private elementRef = inject(ElementRef);
+  private shortBarST?: ScrollTrigger;
+  private shortBarFallbackST?: ScrollTrigger;
+  private hideHeaderST?: ScrollTrigger;
+  private hideHeaderFallbackST?: ScrollTrigger;
 
   constructor(private ngZone: NgZone) {
     if (typeof window !== 'undefined') {
@@ -62,6 +68,10 @@ export class Hero implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     if (this.ctx) this.ctx.revert();
+    if (this.shortBarST) this.shortBarST.kill();
+    if (this.shortBarFallbackST) this.shortBarFallbackST.kill();
+    if (this.hideHeaderST) this.hideHeaderST.kill();
+    if (this.hideHeaderFallbackST) this.hideHeaderFallbackST.kill();
   }
 
   private waitForImages(): void {
@@ -163,6 +173,48 @@ export class Hero implements AfterViewInit, OnDestroy {
           }
         }
       );
+      // ScrollTrigger to toggle short-bar visibility when users reach the hero note/h-s element
+      if (this.hSTextRef) {
+        // Short-bar should appear when we reach a little before center
+        this.shortBarST = ScrollTrigger.create({
+          scroller: scroller,
+          trigger: this.hSTextRef.nativeElement,
+          start: 'top 65%',
+          end: 'bottom top',
+          onEnter: () => this.state.showShortBar.set(true),
+          onLeaveBack: () => this.state.showShortBar.set(false),
+        });
+
+        // Hide header slightly before the short-bar appears to create the desired visual effect
+        this.hideHeaderST = ScrollTrigger.create({
+          scroller: scroller,
+          trigger: this.hSTextRef.nativeElement,
+          start: 'top 65%',
+          end: 'bottom top',
+          onEnter: () => this.state.hideHeader.set(true),
+          onLeaveBack: () => this.state.hideHeader.set(false),
+        });
+      } else if (this.headlineRef) {
+        // Fallback: use the headline to toggle short-bar when the hero note isn't present (e.g., mobile)
+        this.shortBarFallbackST = ScrollTrigger.create({
+          scroller: scroller,
+          trigger: this.headlineRef.nativeElement,
+          start: 'top 75%',
+          end: 'bottom top',
+          onEnter: () => this.state.showShortBar.set(true),
+          onLeaveBack: () => this.state.showShortBar.set(false),
+        });
+
+        // Hide header slightly before the short-bar appears on fallback as well
+        this.hideHeaderFallbackST = ScrollTrigger.create({
+          scroller: scroller,
+          trigger: this.headlineRef.nativeElement,
+          start: 'top 70%',
+          end: 'bottom top',
+          onEnter: () => this.state.hideHeader.set(true),
+          onLeaveBack: () => this.state.hideHeader.set(false),
+        });
+      }
     }, this.containerRef.nativeElement);
   }
 }
