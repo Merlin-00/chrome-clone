@@ -2,7 +2,15 @@
 <!-- 🧩 LAYOUT PRINCIPAL DE L'APPLICATION                                  -->
 <!-- ====================================================================== -->
 
+<!-- The header remains visible by default; we only hide it when `hideHeader` is true -->
+@if (!hideHeader()) {
 <app-header></app-header>
+}
+
+<!-- The short-bar appears when `showShortBar` is true. Both header and short-bar may be visible at the same time. -->
+@if (showShortBar()) {
+<app-short-bar></app-short-bar>
+}
 
 <!-- Conteneur principal qui gère le scroll -->
 <div class="main-scroll-container">

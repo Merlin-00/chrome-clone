@@ -31,7 +31,8 @@
         </span>
       </div>
 
-      <span>En téléchargeant Chrome, vous acceptez les <a class="more" href="#">Conditions d'utilisation de Google</a>
+      <span>En téléchargeant Chrome, vous acceptez les <a class="more" href="#">Conditions d'utilisation de
+          Google</a>
         et les <br> <a class="more" href="#">Conditions
           d'utilisation supplémentaires de Google Chrome et ChromeOS.</a></span>
     </div>
@@ -39,6 +40,7 @@
   </div>
   <div class="mosaic" #mosaic>
     <div class="mosaic__scaler">
+      <div #hS></div>
       <div class="mosaic__track" #track>
         <article class="mosaic__card mosaic__card--left">
           <img class="img1" [ngSrc]="'/assets/sections-images/image1.png'" alt="image1" width="1000" height="600"
@@ -57,8 +59,8 @@
             decoding="async" loading="lazy">
         </article>
         <article class="mosaic__card mosaic__card--right">
-          <img class="img1" [ngSrc]="'/assets/sections-images/image5.png'" alt="image5" width="1000" height="600"
-            decoding="async" loading="lazy">
+          <img class="img1" [ngSrc]="'/assets/sections-images/image' + (width() >= medium ? 5 : 3) + '.png'"
+            alt="image5" width="1000" height="600" decoding="async" loading="lazy">
         </article>
       </div>
     </div>
