@@ -97,7 +97,7 @@
                 <img class="img" src="{{ page.backImage }}" alt="{{ page.id }} back" />
                 <p class="back-content">{{ page.back.content }}
                   @if (page.linkExist) {
-                  <br />
+
                   <a href="#" class="back-cta" (click)="$event.stopPropagation()">{{ page.back.cta }}<mat-icon
                       class="external-icon">arrow_outward</mat-icon></a>
                   }

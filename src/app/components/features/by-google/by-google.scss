@@ -209,12 +209,7 @@ mat-card.card-face {
 .back-content-wrapper .img {
   padding-right: 3rem;
 }
-.back-content {
-  padding-right: 1rem;
-  font-size: 1rem;
-  line-height: 1.6;
-  padding-bottom: 3rem; /* avoid floating close button overlap */
-}
+
 .back-cta {
   font-weight: 700;
   text-decoration: none;
@@ -376,7 +371,6 @@ mat-card.card-face {
   /* reduce mat-card padding on mobile to better fit viewport */
   mat-card.card-face {
     padding: 2rem;
-
     width: 330px;
   }
 
@@ -387,11 +381,9 @@ mat-card.card-face {
     line-height: 1.25;
     overflow-wrap: break-word;
   }
-
   .card-face .img {
     width: 100%;
-    height: auto;
-    max-height: 36vh;
+    height: 36vh;
     object-fit: contain;
     display: block;
     margin: 0 auto; /* center the image horizontally */
@@ -402,6 +394,14 @@ mat-card.card-face {
   .back-content-wrapper {
     flex: 0 0 auto;
     z-index: 2;
+    .img {
+      width: 100%;
+      height: auto;
+      max-height: 36vh;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto; /* center the image horizontally */
+    }
   }
 
   /* Visual area shouldn't grow beyond the allowed height */
@@ -414,10 +414,6 @@ mat-card.card-face {
 
   .back-content-wrapper .img {
     padding-right: 0; /* on mobile remove extra padding so content doesn't overflow */
-  }
-  .back-content {
-    overflow-wrap: break-word;
-    padding-bottom: 4rem; /* provide extra spacing on mobile to avoid control overlap */
   }
 
   /* Tweak nav controls horizontally to align with left edge of card - no override */
