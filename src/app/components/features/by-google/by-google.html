@@ -15,7 +15,7 @@
         par Google
       </h2>
     </header>
-
+    @if (width() >= medium) {
     <!-- Carte IA (statique) -->
     <mat-card class="ai-card">
       <div class="ai-eyebrow">IA Google</div>
@@ -73,5 +73,56 @@
       </div>
       }
     </div>
+    }@else {
+    <!-- MOBILE CAROUSEL: show 2 cards per page with prev/next buttons below -->
+    <div class="carousel-wrapper">
+      <div class="carousel-track" [style.width]="(pageCount * 100) + '%'" [style.transform]="getTransform()">
+        @for (page of pages(); track $index) {
+        <div class="carousel-page" data-page-index="$index">
+          <div class="carousel-card card-container" (click)="toggleCard(page.id)"
+            [class.is-flipped]="isFlipped(page.id)">
+            <mat-card class="card-face card-front" [class]="'variant--' + page.variant">
+              <div class="front-content">
+                <span class="front-eyebrow">{{ page.front.eyebrow }}</span>
+                <h4 class="front-title">{{ page.front.title }}</h4>
+              </div>
+              <img class="img" src="{{ page.frontImage }}" alt="{{ page.id }} front" />
+              <mat-card-actions align="end">
+                <button mat-icon-button class="btn6" aria-label="open-card"><mat-icon>add</mat-icon></button>
+              </mat-card-actions>
+            </mat-card>
+
+            <mat-card class="card-face card-back" [class]="'variant--' + page.variant">
+              <div class="back-content-wrapper">
+                <img class="img" src="{{ page.backImage }}" alt="{{ page.id }} back" />
+                <p class="back-content">{{ page.back.content }}
+                  @if (page.linkExist) {
+                  <br />
+                  <a href="#" class="back-cta" (click)="$event.stopPropagation()">{{ page.back.cta }}<mat-icon
+                      class="external-icon">arrow_outward</mat-icon></a>
+                  }
+                </p>
+              </div>
+              <mat-card-actions align="end">
+                <button mat-icon-button class="btn5"
+                  (click)="toggleCard(page.id); $event.stopPropagation()"><mat-icon>close</mat-icon></button>
+              </mat-card-actions>
+            </mat-card>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+    <div class="carousel-controls-mobile">
+      <button mat-icon-button class="carousel-arrow" (click)="prevCard()" [disabled]="currentIndex === 0"
+        [class.active]="currentIndex > 0">
+        <mat-icon>keyboard_arrow_left</mat-icon>
+      </button>
+      <button mat-icon-button class="carousel-arrow" (click)="nextCard()" [disabled]="currentIndex >= pageCount - 1"
+        [class.active]="currentIndex === 0">
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </button>
+    </div>
+    }
   </div>
 </section>
