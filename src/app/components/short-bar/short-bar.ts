@@ -79,7 +79,7 @@ import { WindowsObserver } from '../../services/windows-observer';
           }
 
           .btn:hover {
-            background-color: var(--mat-sys-primary);
+            background-color: #0f5fc9ff;
           }
 
     }

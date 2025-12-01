@@ -1,8 +1,6 @@
 @use 'mixins' as *;
 
 :host {
-  margin-top: 4rem;
-  margin-bottom: 4rem;
   display: block;
   width: 100%;
   overflow-x: hidden;
@@ -11,6 +9,8 @@
 .container {
   max-width: var(--container-max-width, 1120px);
   margin: 0 auto;
+  margin-top: 4rem;
+  margin-bottom: 4rem;
   padding: 0 var(--container-padding, 20px);
 }
 
@@ -26,7 +26,8 @@
 .pill-wrapper {
   display: inline-block;
   .pill {
-    display: inline-flex;
+    display: flex;
+    align-items: center;
     padding: 0.75rem 1.5rem;
     background-color: #fef7e0;
     border-radius: 99px;
@@ -139,6 +140,13 @@
     opacity 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
+.card-face:hover {
+  .img,
+  mat-card-actions button {
+    transform: scale(1.2);
+  }
+}
+
 /* Ensure mat-card elements behave like the floating card faces */
 mat-card.card-face {
   padding: 3rem;
@@ -205,6 +213,11 @@ mat-card.card-face {
   width: 100%;
   height: 100%;
   border-radius: 8px;
+  margin-top: 2rem;
+  /* Smoothly animate the scale transform when hovered on the card face */
+  transition: transform 300ms cubic-bezier(0.22, 0.9, 0.28, 1);
+  transform-origin: center center;
+  will-change: transform;
 }
 .back-content-wrapper .img {
   padding-right: 3rem;
@@ -275,6 +288,15 @@ mat-card.card-face {
   justify-content: flex-end;
   align-items: center;
   padding: 0;
+}
+
+/* Smoothly animate the scale transform for floating action buttons inside the card face */
+.card-face mat-card-actions button,
+.card-face .btn5,
+.card-face .btn6 {
+  transition: transform 300ms cubic-bezier(0.22, 0.9, 0.28, 1);
+  transform-origin: center center;
+  will-change: transform;
 }
 .btn6 {
   background-color: #1a73e8;
@@ -371,7 +393,8 @@ mat-card.card-face {
   /* reduce mat-card padding on mobile to better fit viewport */
   mat-card.card-face {
     padding: 2rem;
-    width: 330px;
+    width: 50%;
+    max-width: 100%;
   }
 
   /* Make sure text fits and images don't overflow the card */
